@@ -1,0 +1,15 @@
+release/filemanager.o
+release/historymanager.o
+release/loginwidget.o
+release/main.o
+release/mainwidget.o
+release/noteswidget.o
+release/sessionmanager.o
+release/task.o
+release/taskformwidget.o
+release/user.o
+release/qrc_qmake_qmake_qm_files.o
+release/moc_loginwidget.o
+release/moc_mainwidget.o
+release/moc_noteswidget.o
+release/moc_taskformwidget.o

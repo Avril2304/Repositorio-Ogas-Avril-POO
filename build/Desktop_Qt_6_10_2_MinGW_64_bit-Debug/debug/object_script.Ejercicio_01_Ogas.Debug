@@ -1,0 +1,15 @@
+debug/filemanager.o
+debug/historymanager.o
+debug/loginwidget.o
+debug/main.o
+debug/mainwidget.o
+debug/noteswidget.o
+debug/sessionmanager.o
+debug/task.o
+debug/taskformwidget.o
+debug/user.o
+debug/qrc_qmake_qmake_qm_files.o
+debug/moc_loginwidget.o
+debug/moc_mainwidget.o
+debug/moc_noteswidget.o
+debug/moc_taskformwidget.o
