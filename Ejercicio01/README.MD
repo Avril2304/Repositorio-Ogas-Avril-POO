@@ -77,14 +77,16 @@ Visualización de todos los trabajos prácticos.
 ### Filtros
 Permite filtrar tareas por estado y prioridad.
 
-![Filtros](capturas/filtros.png)
+![Filtro Estado](Ejercicio01/capturas/filtroEstado.png)
+
+![Filtro Prioridad](Ejercicio01/capturas/filtroPrioridad.png)
 
 ---
 
 ### Crear tarea
 Se pueden agregar nuevas tareas al sistema.
 
-![Crear tarea](capturas/crear_tarea.png)
+![Crear Tarea](Ejercicio01/capturas/crearTarea.png)
 
 ---
 
