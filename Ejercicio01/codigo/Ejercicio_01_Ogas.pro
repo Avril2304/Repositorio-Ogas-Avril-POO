@@ -29,8 +29,7 @@ HEADERS += \
     taskformwidget.h \
     user.h
 
-TRANSLATIONS += \
-    Ejercicio_01_Ogas_es_419.ts
+
 CONFIG += lrelease
 CONFIG += embed_translations
 
