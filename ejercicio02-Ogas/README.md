@@ -95,7 +95,7 @@ Se utilizó un servidor VPS con un endpoint `/health` que devuelve información 
 ###  Panel general
 Vista principal con métricas del servidor.
 
-![Panel](Ejercicio02/capturas/captura_panel_general.png)
+![Panel](capturas/captura_panel_general.png)
 
 ---
 
