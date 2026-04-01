@@ -102,42 +102,42 @@ Vista principal con métricas del servidor.
 ###  Estado OK
 El servidor funciona correctamente.
 
-![OK](Ejercicio02/capturas/captura_estado_ok.png)
+![OK](capturas/captura_estado_ok.png)
 
 ---
 
 ###  Estado ALERTA
 Valores fuera del umbral.
 
-![Alerta](Ejercicio02/capturas/captura_estado_alerta.png)
+![Alerta](capturas/captura_estado_alerta.png)
 
 ---
 
 ### Estado CAÍDO
 El servidor no responde.
 
-![Caido](Ejercicio02/capturas/captura_estado_caido.png)
+![Caido](capturas/captura_estado_caido.png)
 
 ---
 
 ###  Historial
 Registro de eventos del sistema.
 
-![Historial](Ejercicio02/capturas/captura_historial.png)
+![Historial](capturas/captura_historial.png)
 
 ---
 
 ###  Endpoint en el VPS
 Respuesta del servidor.
 
-![Endpoint](Ejercicio02/capturas/captura_endpoint_vps.png)
+![Endpoint](capturas/captura_endpoint_vps.png)
 
 ---
 
 ###  Conexión SSH al VPS
 Acceso al servidor.
 
-![SSH](Ejercicio02/capturas/captura_vps_ssh.png)
+![SSH](capturas/captura_vps_ssh.png)
 
 ---
 
