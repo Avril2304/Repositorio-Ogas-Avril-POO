@@ -43,11 +43,9 @@ Construir un panel visual que permita:
 ## Estructura del proyecto
 
 Ejercicio02/
-│
-├── codigo/ lógica de la aplicación
-├── VPS/ uso del VPS
-├── capturas/ evidencias del funcionamiento
-└── README.md
+- codigo/ lógica de la aplicación
+- VPS/ uso del VPS
+- capturas/ evidencias del funcionamiento
 
 ---
 
