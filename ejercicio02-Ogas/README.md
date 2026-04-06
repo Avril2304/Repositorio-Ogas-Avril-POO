@@ -1,10 +1,10 @@
-# 🖥️ Ejercicio 02 - Panel de Monitoreo VPS
+# Ejercicio 02 - Panel de Monitoreo VPS
 
 Aplicación desarrollada en **C++ con Qt (QWidget)** que permite monitorear el estado de un servidor en la nube (VPS) mediante el consumo de un endpoint HTTP.
 
 ---
 
-## 📌 Enunciado
+## Enunciado
 
 El objetivo del ejercicio es desarrollar una aplicación de escritorio que:
 
@@ -17,7 +17,7 @@ El objetivo del ejercicio es desarrollar una aplicación de escritorio que:
 
 ---
 
-## 🎯 Objetivo del proyecto
+## Objetivo del proyecto
 
 Construir un panel visual que permita:
 
@@ -28,7 +28,7 @@ Construir un panel visual que permita:
 
 ---
 
-## ⚙️ Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - C++
 - Qt (QWidget)
@@ -40,11 +40,16 @@ Construir un panel visual que permita:
 
 ---
 
-## 📁 Estructura del proyecto
+## Estructura del proyecto
+
+Ejercicio02/
+- codigo/ lógica de la aplicación
+- VPS/ uso del VPS
+- capturas/ evidencias del funcionamiento
 
 ---
 
-## 🔐 Funcionalidades principales
+## Funcionalidades principales
 
 - Consulta a un endpoint HTTP
 - Procesamiento de respuesta JSON
@@ -64,12 +69,12 @@ Construir un panel visual que permita:
 
 ---
 
-## 🧠 Arquitectura
+## Arquitectura
 
-### 🔹 MainWindow
+### MainWindow
 Encargada de la interfaz gráfica y visualización de datos.
 
-### 🔹 MonitorService
+### MonitorService
 Encargada de:
 - realizar requests HTTP
 - procesar JSON
@@ -79,8 +84,73 @@ Encargada de:
 
 ---
 
-## 🌐 Implementación del VPS
+## Implementación del VPS
 
-Se utilizó un servidor VPS con un endpoint que devuelve el estado del sistema.
+Se utilizó un servidor VPS con un endpoint `/health` que devuelve información del estado del sistema.
 
-### Ejemplo de endpoint:
+---
+
+## Funcionamiento de la aplicación
+
+###  Panel general
+Vista principal con métricas del servidor.
+
+![Panel](capturas/captura_panel_general.png)
+
+---
+
+###  Estado OK
+El servidor funciona correctamente.
+
+![OK](capturas/captura_estado_ok.png)
+
+---
+
+###  Estado ALERTA
+Valores fuera del umbral.
+
+![Alerta](capturas/captura_estado_alerta.png)
+
+---
+
+### Estado CAÍDO
+El servidor no responde.
+
+![Caido](capturas/captura_estado_caido.png)
+
+---
+
+###  Historial
+Registro de eventos del sistema.
+
+![Historial](capturas/captura_historial.png)
+
+---
+
+###  Endpoint en el VPS
+Respuesta del servidor.
+
+![Endpoint](capturas/captura_endpoint_vps.png)
+
+---
+
+###  Conexión SSH al VPS
+Acceso al servidor.
+
+![SSH](capturas/captura_vps_ssh.png)
+
+---
+
+##  Consideraciones
+
+- Se utilizó un servidor real (VPS)
+- Se implementó comunicación cliente-servidor
+- Arquitectura modular
+- Interfaz clara inspirada en sistemas profesionales
+
+---
+
+##  Autor
+
+Avril Ogas  
+Ingeniería en Informática
