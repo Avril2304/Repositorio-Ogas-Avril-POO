@@ -73,8 +73,7 @@ Aplicación de login con QtDesigner que incorpora consumo de API externa para mo
 Incluye validación de usuario, bloqueo temporal tras intentos fallidos, descarga de imagen de fondo con caché local, soporte para proxy, modo offline con datos simulados, registro de eventos y apertura de una ventana principal con currículum estilo LinkedIn.
 
 ---
-```Cada ejercicio se encuentra organizado en su propia carpeta.
-````
+Cada ejercicio se encuentra organizado en su propia carpeta.
 ---
 ## Tecnologías utilizadas
 
