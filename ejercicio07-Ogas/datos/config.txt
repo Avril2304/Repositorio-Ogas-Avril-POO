@@ -1,0 +1,2 @@
+API_KEY=TU_API_KEY
+CIUDAD=Cordoba,AR

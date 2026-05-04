@@ -9,4 +9,4 @@ public:
     static void registrar(QString descripcion);
 };
 
-#endif // LOGGER_H
+#endif
