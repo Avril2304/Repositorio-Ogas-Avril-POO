@@ -73,8 +73,14 @@ Aplicación de login con QtDesigner que incorpora consumo de API externa para mo
 Incluye validación de usuario, bloqueo temporal tras intentos fallidos, descarga de imagen de fondo con caché local, soporte para proxy, modo offline con datos simulados, registro de eventos y apertura de una ventana principal con currículum estilo LinkedIn.
 
 ---
-Cada ejercicio se encuentra organizado en su propia carpeta.
+
+### Ejercicio 08 - Editor multilenguaje
+
+Aplicación de escritorio desarrollada en Qt que simula un editor de código con soporte para C++, Python y Java.
+Incluye validación de sintaxis, resaltado de errores, arquitectura basada en herencia y polimorfismo, redefinición de eventos de Qt, exportación del código a JPG y panel lateral estilo LinkedIn.
+
 ---
+
 ## Tecnologías utilizadas
 
 * C++
@@ -88,6 +94,18 @@ Cada ejercicio se encuentra organizado en su propia carpeta.
 * MySQL
 * VPS
 * Git y GitHub
+
+---
+
+## Organización
+
+Cada ejercicio se encuentra en su propia carpeta e incluye, según corresponda:
+
+* Código fuente
+* Archivos de datos
+* Capturas del funcionamiento
+* README individual
+* Recursos utilizados
 
 ---
 
