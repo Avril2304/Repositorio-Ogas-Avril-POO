@@ -1,7 +1,31 @@
-build/
+# Qt Creator
 *.pro.user
+*.pro.user.*
+*.autosave
+.qtcreator/
+.qtc_clangd/
+
+# Builds
+build/
+debug/
+release/
+
+# Ejecutables
 *.exe
+*.out
+
+# Objetos compilados
 *.o
 *.obj
+
+# Qt generados
+moc_*
+ui_*.h
+qrc_*.cpp
+
+# Logs temporales
 *.log
-*.qtc_clangd/
+
+# Windows
+Thumbs.db
+.DS_Store
