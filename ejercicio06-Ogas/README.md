@@ -2,45 +2,75 @@
 
 ## Descripción
 
-En este ejercicio se desarrolló un login básico en Qt utilizando Qt Designer para la creación de la interfaz gráfica.
+Aplicación de login desarrollada utilizando Qt Designer para la creación visual de la interfaz gráfica.
 
-A diferencia del ejercicio anterior, la interfaz fue diseñada de forma visual mediante el archivo `.ui`, mientras que la lógica se implementó en C++.
+A diferencia del ejercicio anterior, la interfaz fue diseñada mediante archivos `.ui`, mientras que la lógica y validación del sistema fueron implementadas en C++ utilizando señales y slots.
+
+---
+
+## Funcionalidades principales
+
+- Ingreso de usuario y contraseña
+- Validación básica de credenciales
+- Mensajes de acceso correcto e incorrecto
+- Interfaz gráfica diseñada visualmente con Qt Designer
+- Integración entre interfaz `.ui` y lógica en C++
 
 ---
 
 ## Tecnologías utilizadas
 
-* C++
-* Qt Widgets
-* Qt Designer
-* Qt Creator
-
----
-
-## Funcionalidades
-
-* Ingreso de usuario y contraseña
-* Validación de credenciales
-* Mensaje de resultado (correcto / incorrecto)
-* Interfaz diseñada visualmente
+- C++
+- Qt Widgets
+- Qt Designer
+- Qt Creator
+- Signals & Slots
 
 ---
 
 ## Estructura del proyecto
 
-* `main.cpp`: inicio de la aplicación
-* `login.h`: definición de la clase
-* `login.cpp`: lógica del login
-* `login.ui`: diseño de la interfaz
+```text
+ejercicio06-Ogas/
+│
+├── codigo/
+├── capturas/
+├── multimedia/
+└── README.md
+```
+
+---
+
+## Archivos principales
+
+- `main.cpp` → punto de inicio de la aplicación
+- `login.h` → definición de la clase Login
+- `login.cpp` → implementación de la lógica
+- `login.ui` → diseño visual de la interfaz
 
 ---
 
 ## Video explicativo
 
-🔗 https://youtu.be/zWhEoJTPgaM 
+- https://youtu.be/zWhEoJTPgaM
+
+---
+
+## Compilación y ejecución
+
+1. Abrir el archivo `.pro` desde Qt Creator.
+2. Configurar el kit de compilación correspondiente.
+3. Ejecutar el proyecto.
+
+---
+
+## Estado
+
+✔ Ejercicio completado
 
 ---
 
 ## Autor
 
-Avril Ogas
+**Avril Ogas**  
+Ingeniería en Informática

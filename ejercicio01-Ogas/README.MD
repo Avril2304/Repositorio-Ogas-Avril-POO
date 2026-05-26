@@ -1,58 +1,72 @@
 # Ejercicio 01 - Planificador de Trabajos Prácticos
 
-Aplicación desarrollada en **C++ con Qt (QWidget)** que permite gestionar trabajos prácticos con persistencia local en archivos.
+## Descripción
 
----
+Aplicación de escritorio desarrollada en C++ utilizando Qt Widgets que permite gestionar trabajos prácticos con persistencia local mediante archivos CSV y JSON.
 
-## Enunciado
-
-El objetivo de este trabajo práctico es desarrollar una aplicación de escritorio que permita:
-
-- Gestionar trabajos prácticos (crear, editar, eliminar)
-- Filtrar por estado y prioridad
-- Implementar persistencia local (CSV / JSON)
-- Manejar sesiones de usuario
-- Registrar historial de acciones
-- Utilizar QWidget (sin QMainWindow)
-- Mantener una correcta separación en clases
-
----
-
-## Tecnologías utilizadas
-
-- C++
-- Qt (QWidget)
-- Archivos CSV y JSON
-- Programación orientada a objetos
-
----
-
-## Estructura del proyecto
-
-- `codigo/` → lógica de la aplicación
-- `datos/` → archivos de persistencia
-- `capturas/` → evidencias del funcionamiento
+El objetivo principal del ejercicio es aplicar conceptos básicos de Programación Orientada a Objetos, persistencia local, manejo de sesiones y organización modular de clases utilizando `QWidget` sin emplear `QMainWindow`.
 
 ---
 
 ## Funcionalidades principales
 
 - Login de usuario
-- Persistencia de datos
-- CRUD de tareas
+- Persistencia local de datos
+- CRUD de trabajos prácticos
 - Filtros por estado y prioridad
 - Historial de acciones
 - Manejo de sesión activa
+- Editor de notas asociado a tareas
+- Persistencia automática mediante archivos
+
+---
+
+## Objetivos del ejercicio
+
+Implementar una aplicación de escritorio que permita:
+
+- Gestionar trabajos prácticos
+- Filtrar tareas por estado y prioridad
+- Mantener persistencia local
+- Manejar sesiones de usuario
+- Registrar historial de acciones
+- Organizar correctamente el proyecto mediante clases
+
+---
+
+## Tecnologías utilizadas
+
+- C++
+- Qt Widgets
+- JSON
+- CSV
+- Programación Orientada a Objetos
+- Persistencia mediante archivos locales
+
+---
+
+## Estructura del proyecto
+
+```text
+ejercicio01-Ogas/
+│
+├── codigo/
+├── datos/
+├── capturas/
+└── README.md
+```
 
 ---
 
 ## Persistencia
 
-La aplicación utiliza:
+La aplicación utiliza distintos archivos locales:
 
-- `users.csv` → almacenamiento de usuarios  
-- `tasks.json` → almacenamiento de tareas  
-- `session.json` → gestión de sesión  
+| Archivo | Función |
+|---|---|
+| `users.csv` | Almacenamiento de usuarios |
+| `tasks.json` | Persistencia de tareas |
+| `session.json` | Gestión de sesión activa |
 
 Los archivos se crean automáticamente si no existen.
 
@@ -61,20 +75,23 @@ Los archivos se crean automáticamente si no existen.
 ## Funcionamiento de la aplicación
 
 ### Login
-Permite ingresar con un usuario previamente registrado.
+
+Permite ingresar con usuarios previamente registrados.
 
 ![Login](capturas/login.png)
 
 ---
 
 ### Tablero de tareas
-Visualización de todos los trabajos prácticos.
+
+Visualización general de trabajos prácticos.
 
 ![Tablero](capturas/tablero.png)
 
 ---
 
 ### Filtros
+
 Permite filtrar tareas por estado y prioridad.
 
 ![Filtro Estado](capturas/filtroEstado.png)
@@ -84,6 +101,7 @@ Permite filtrar tareas por estado y prioridad.
 ---
 
 ### Crear tarea
+
 Se pueden agregar nuevas tareas al sistema.
 
 ![Crear Tarea](capturas/crearTarea.png)
@@ -91,6 +109,7 @@ Se pueden agregar nuevas tareas al sistema.
 ---
 
 ### Historial
+
 Registro de acciones realizadas por el usuario.
 
 ![Historial](capturas/historial.png)
@@ -99,13 +118,27 @@ Registro de acciones realizadas por el usuario.
 
 ## Consideraciones
 
-- El sistema mantiene la sesión activa por un período determinado
+- El sistema mantiene la sesión activa por un tiempo determinado
 - Se priorizó la organización modular del código
-- Se implementó persistencia sin base de datos
+- Se implementó persistencia sin utilizar bases de datos
+
+---
+
+## Compilación y ejecución
+
+1. Abrir el archivo `.pro` desde Qt Creator.
+2. Configurar el kit de compilación.
+3. Ejecutar el proyecto.
+
+---
+
+## Estado
+
+✔ Ejercicio completado
 
 ---
 
 ## Autor
 
-Avril Ogas  
+**Avril Ogas**  
 Ingeniería en Informática

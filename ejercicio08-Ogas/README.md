@@ -2,66 +2,107 @@
 
 ## Descripción
 
-Aplicación de escritorio desarrollada en C++ con Qt Widgets. El sistema implementa un login inicial, control de intentos fallidos, bloqueo temporal y un editor multilenguaje con validación sintáctica básica para C++, Python y Java.
+Aplicación de escritorio desarrollada en C++ utilizando Qt Widgets.
 
-El objetivo principal del ejercicio es aplicar herencia, clases abstractas, polimorfismo, redefinición de eventos, signals/slots y persistencia local mediante archivos.
+El sistema implementa un login con validación de usuario, control de intentos fallidos y un editor multilenguaje con validación sintáctica básica para C++, Python y Java.
+
+El objetivo principal del ejercicio es aplicar conceptos avanzados de Programación Orientada a Objetos utilizando herencia, polimorfismo, clases abstractas, redefinición de eventos y persistencia local mediante archivos.
+
+---
 
 ## Usuario de prueba
 
 ```txt
 Usuario: admin
 Contraseña: 1234
-````
+```
 
-Las credenciales del login se configuran desde el archivo:
+Las credenciales pueden configurarse desde:
 
 ```txt
 datos/config.txt
 ```
 
+---
+
 ## Funcionalidades principales
 
-* Login inicial con usuario y contraseña.
-* Bloqueo temporal luego de 3 intentos fallidos.
-* Clase base abstracta `Pantalla`.
-* Clases derivadas:
+- Login inicial con usuario y contraseña
+- Bloqueo temporal tras 3 intentos fallidos
+- Editor principal en pantalla completa
+- Selector de lenguaje:
+  - C++
+  - Python
+  - Java
+- Validación de sintaxis por línea
+- Resaltado de errores en rojo
+- Mensajes amigables en la interfaz
+- Exportación del código a JPG
+- Panel lateral estilo LinkedIn
+- Persistencia mediante archivos locales
+- Funcionamiento completamente offline
 
-  * `Login`
-  * `EditorPrincipal`
-  * `ModoBloqueado`
-* Uso de polimorfismo mediante punteros a `Pantalla`.
-* Editor principal en pantalla completa.
-* Selector de lenguaje:
+---
 
-  * C++
-  * Python
-  * Java
-* Jerarquía polimórfica de validadores:
+## Arquitectura orientada a objetos
 
-  * `ValidadorSintaxis`
-  * `ValidadorCpp`
-  * `ValidadorPython`
-  * `ValidadorJava`
-* Validación de sintaxis por línea.
-* Resaltado de errores en rojo.
-* Mensajes amigables en la interfaz.
-* Redefinición de eventos:
+### Clase base abstracta
 
-  * `keyPressEvent`
-  * `mousePressEvent`
-  * `resizeEvent`
-  * `closeEvent`
-  * `focusInEvent`
-  * `focusOutEvent`
-* Registro de eventos en archivo de log.
-* Lectura de configuración desde archivo.
-* Exportación del código escrito a un archivo JPG.
-* Panel lateral estilo LinkedIn con perfil personal.
-* Funcionamiento offline, sin servicios remotos.
+- `Pantalla`
 
-## Archivos de configuración
+### Clases derivadas
 
-El archivo `config.txt` contiene:
+- `Login`
+- `EditorPrincipal`
+- `ModoBloqueado`
+
+La aplicación utiliza polimorfismo mediante punteros y referencias a la clase base `Pantalla`.
+
+---
+
+## Jerarquía de validadores
+
+### Clase abstracta
+
+- `ValidadorSintaxis`
+
+### Clases derivadas
+
+- `ValidadorCpp`
+- `ValidadorPython`
+- `ValidadorJava`
+
+Cada validador implementa reglas básicas de validación sintáctica según el lenguaje seleccionado.
+
+---
+
+## Redefinición de eventos Qt
+
+Se redefinieron distintos eventos para adaptar el comportamiento de cada pantalla:
+
+- `keyPressEvent`
+- `mousePressEvent`
+- `resizeEvent`
+- `closeEvent`
+- `focusInEvent`
+- `focusOutEvent`
+
+---
+
+## Signals & Slots
+
+Se utilizó el sistema de señales y slots de Qt para:
+
+- Comunicación entre componentes
+- Validación dinámica
+- Actualización de interfaz
+- Manejo de eventos del editor
+
+---
+
+## Configuración
+
+Archivo `config.txt`:
 
 ```txt
 usuario=admin
@@ -71,15 +112,17 @@ lenguaje_defecto=C++
 ruta_exportacion=datos/codigo_exportado.jpg
 ```
 
+---
+
 ## Registro de eventos
 
-La aplicación guarda acciones importantes en:
+La aplicación registra acciones importantes en:
 
 ```txt
 datos/eventos.log
 ```
 
-Ejemplos de eventos registrados:
+### Ejemplos de eventos registrados
 
 ```txt
 Login correcto
@@ -91,15 +134,70 @@ Código exportado a JPG
 Editor cerrado
 ```
 
+---
+
 ## Exportación
 
-El botón **Exportar a JPG** genera una imagen con todo el código escrito en el editor, respetando saltos de línea y numeración.
+El botón **Exportar a JPG** genera una imagen que contiene todo el código escrito en el editor, respetando saltos de línea y formato visual.
+
+---
 
 ## Tecnologías utilizadas
 
-* C++
-* Qt Widgets
-* Signals y Slots
-* Archivos locales
-* Programación Orientada a Objetos
-* Herencia y polimorfismo
+- C++
+- Qt Widgets
+- Qt Designer
+- Signals & Slots
+- Programación Orientada a Objetos
+- Herencia y Polimorfismo
+- Persistencia mediante archivos locales
+
+---
+
+## Estructura del proyecto
+
+```text
+ejercicio08-Ogas/
+│
+├── codigo/
+├── capturas/
+├── multimedia/
+└── README.md
+```
+
+---
+
+## Capturas
+
+### Login
+
+![Login](capturas/login.png)
+
+### Editor principal
+
+![Editor](capturas/editor.png)
+
+### Exportación JPG
+
+![Exportacion](capturas/exportacion.png)
+
+---
+
+## Compilación y ejecución
+
+1. Abrir el archivo `.pro` desde Qt Creator.
+2. Configurar el kit de compilación.
+3. Ejecutar el proyecto.
+
+---
+
+## Estado
+
+✔ Ejercicio completado
+
+---
+
+## Autor
+
+**Avril Ogas**  
+Ingeniería en Informática

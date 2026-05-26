@@ -1,156 +1,205 @@
 # Ejercicio 02 - Panel de Monitoreo VPS
 
-Aplicación desarrollada en **C++ con Qt (QWidget)** que permite monitorear el estado de un servidor en la nube (VPS) mediante el consumo de un endpoint HTTP.
+## Descripción
+
+Aplicación desarrollada en C++ utilizando Qt Widgets que permite monitorear el estado de un servidor VPS mediante el consumo de un endpoint HTTP.
+
+El sistema consulta métricas del servidor en tiempo real, procesa respuestas JSON y muestra información del estado general del sistema a través de una interfaz gráfica inspirada en paneles de monitoreo profesionales.
 
 ---
 
-## Enunciado
+## Objetivos del ejercicio
 
-El objetivo del ejercicio es desarrollar una aplicación de escritorio que:
+Desarrollar una aplicación de escritorio que permita:
 
-- Consulte un endpoint en un servidor VPS
-- Muestre el estado del servidor
-- Visualice métricas (carga, memoria, disco, uptime)
-- Permita interacción mediante controles
-- Incluya historial de eventos
-- Utilice Qt Widgets (sin QML)
+- Consultar un endpoint en un VPS
+- Visualizar métricas del sistema
+- Detectar estados del servidor
+- Configurar intervalos y umbrales
+- Registrar historial de eventos
+- Implementar comunicación cliente-servidor utilizando Qt
 
 ---
 
-## Objetivo del proyecto
+## Funcionalidades principales
 
-Construir un panel visual que permita:
-
-- Monitorear un servidor real
-- Interpretar datos en formato JSON
-- Detectar estados del sistema (OK, ALERTA, CAÍDO)
-- Configurar intervalos y umbrales de monitoreo
+- Consulta periódica a un endpoint HTTP
+- Procesamiento de respuestas JSON
+- Visualización de estado del servidor:
+  - OK
+  - ALERTA
+  - CAÍDO
+- Monitoreo de:
+  - Uptime
+  - Carga
+  - Memoria
+  - Disco
+- Refresco manual
+- Configuración de intervalos
+- Configuración de umbrales
+- Historial de eventos
+- Actualización automática mediante `QTimer`
 
 ---
 
 ## Tecnologías utilizadas
 
 - C++
-- Qt (QWidget)
-- JSON
+- Qt Widgets
 - QNetworkAccessManager
+- JSON
 - QTimer
-- Python + Flask (VPS)
+- Python
+- Flask
 - SSH
-
----
-
-## Estructura del proyecto
-
-Ejercicio02/
-- codigo/ lógica de la aplicación
-- VPS/ uso del VPS
-- capturas/ evidencias del funcionamiento
-
----
-
-## Funcionalidades principales
-
-- Consulta a un endpoint HTTP
-- Procesamiento de respuesta JSON
-- Visualización de estado del servidor:
-  - OK
-  - ALERTA
-  - CAÍDO
-- Visualización de métricas:
-  - uptime
-  - carga
-  - memoria
-  - disco
-- Refresco manual
-- Configuración de intervalo
-- Configuración de umbral
-- Historial de eventos
+- VPS Linux
 
 ---
 
 ## Arquitectura
 
-### MainWindow
-Encargada de la interfaz gráfica y visualización de datos.
+### `MainWindow`
 
-### MonitorService
-Encargada de:
-- realizar requests HTTP
-- procesar JSON
-- manejar el timer
-- emitir señales
-- generar eventos
+Clase encargada de:
+
+- Interfaz gráfica
+- Visualización de métricas
+- Estado visual del sistema
+- Controles interactivos
+
+### `MonitorService`
+
+Clase encargada de:
+
+- Realizar requests HTTP
+- Procesar respuestas JSON
+- Manejar timers
+- Emitir señales
+- Generar eventos
 
 ---
 
 ## Implementación del VPS
 
-Se utilizó un servidor VPS con un endpoint `/health` que devuelve información del estado del sistema.
+Se utilizó un servidor VPS real con un endpoint `/health` encargado de devolver información del estado del sistema.
+
+### Datos monitoreados
+
+- Uptime
+- Uso de memoria
+- Uso de disco
+- Carga del sistema
+- Estado general
+
+---
+
+## Comunicación cliente-servidor
+
+La aplicación utiliza `QNetworkAccessManager` para consultar el endpoint HTTP alojado en el VPS.
+
+```text
+Aplicación Qt → Endpoint VPS → Respuesta JSON
+```
+
+---
+
+## Estructura del proyecto
+
+```text
+ejercicio02-Ogas/
+│
+├── codigo/
+├── datos/
+├── vps/
+├── capturas/
+└── README.md
+```
 
 ---
 
 ## Funcionamiento de la aplicación
 
-###  Panel general
+### Panel general
+
 Vista principal con métricas del servidor.
 
 ![Panel](capturas/captura_panel_general.png)
 
 ---
 
-###  Estado OK
-El servidor funciona correctamente.
+### Estado OK
+
+Servidor funcionando correctamente.
 
 ![OK](capturas/captura_estado_ok.png)
 
 ---
 
-###  Estado ALERTA
-Valores fuera del umbral.
+### Estado ALERTA
+
+Valores fuera de umbral.
 
 ![Alerta](capturas/captura_estado_alerta.png)
 
 ---
 
 ### Estado CAÍDO
+
 El servidor no responde.
 
 ![Caido](capturas/captura_estado_caido.png)
 
 ---
 
-###  Historial
+### Historial
+
 Registro de eventos del sistema.
 
 ![Historial](capturas/captura_historial.png)
 
 ---
 
-###  Endpoint en el VPS
-Respuesta del servidor.
+### Endpoint VPS
+
+Respuesta del endpoint `/health`.
 
 ![Endpoint](capturas/captura_endpoint_vps.png)
 
 ---
 
-###  Conexión SSH al VPS
-Acceso al servidor.
+### Conexión SSH
+
+Acceso remoto al VPS.
 
 ![SSH](capturas/captura_vps_ssh.png)
 
 ---
 
-##  Consideraciones
+## Consideraciones
 
-- Se utilizó un servidor real (VPS)
+- Se utilizó un servidor VPS real
 - Se implementó comunicación cliente-servidor
-- Arquitectura modular
-- Interfaz clara inspirada en sistemas profesionales
+- Se utilizó arquitectura modular
+- La interfaz se inspiró en sistemas de monitoreo profesionales
 
 ---
 
-##  Autor
+## Compilación y ejecución
 
-Avril Ogas  
+1. Abrir el archivo `.pro` desde Qt Creator.
+2. Configurar el kit de compilación.
+3. Ejecutar el proyecto.
+4. Verificar que el endpoint del VPS esté activo.
+
+---
+
+## Estado
+
+✔ Ejercicio completado
+
+---
+
+## Autor
+
+**Avril Ogas**  
 Ingeniería en Informática

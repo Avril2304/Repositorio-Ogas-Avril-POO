@@ -1,21 +1,30 @@
-# Ejercicio 09 - Coordenadas en base de datos
+# Ejercicio 09 - Coordenadas en Base de Datos
 
-Aplicación de escritorio desarrollada en C++ con Qt Widgets.  
-El sistema permite iniciar sesión con usuarios almacenados en SQLite y acceder a un lienzo de dibujo a mano alzada. Cada trazo realizado se guarda en la base de datos mediante sus coordenadas, color y grosor, permitiendo reconstruir el dibujo al volver a abrir la aplicación.
+## Descripción
+
+Aplicación de escritorio desarrollada en C++ utilizando Qt Widgets y SQLite.
+
+El sistema permite iniciar sesión mediante usuarios almacenados en una base de datos SQLite y acceder a un lienzo de dibujo libre. Cada trazo realizado se almacena utilizando coordenadas, color y grosor, permitiendo reconstruir automáticamente el dibujo al reiniciar la aplicación.
+
+El objetivo principal del ejercicio es integrar persistencia local, eventos de Qt y manejo de bases de datos utilizando Qt SQL.
+
+---
 
 ## Funcionalidades principales
 
-- Login construido con Qt Designer.
-- Validación de usuarios contra una base SQLite.
-- Registro de accesos exitosos e intentos fallidos en archivo de log.
-- Lienzo de dibujo implementado con una clase `Pintura` derivada de `QWidget`.
-- Dibujo libre con mouse.
-- Cambio de grosor con la rueda del mouse.
-- Cambio de color con teclas `R`, `G` y `B`.
-- Borrado completo del lienzo con `Escape`.
-- Deshacer hasta las últimas 10 acciones con `Ctrl + Z`.
-- Persistencia de trazos y coordenadas en SQLite.
-- Reconstrucción del dibujo al iniciar sesión nuevamente.
+- Login desarrollado con Qt Designer
+- Validación de usuarios contra SQLite
+- Registro de accesos e intentos fallidos en archivo de log
+- Lienzo de dibujo implementado con `QWidget`
+- Dibujo libre mediante mouse
+- Cambio dinámico de grosor
+- Cambio de color mediante teclado
+- Persistencia de trazos y coordenadas
+- Reconstrucción automática del dibujo
+- Deshacer acciones (`Ctrl + Z`)
+- Limpieza completa del lienzo
+
+---
 
 ## Usuario de prueba
 
@@ -24,21 +33,25 @@ Usuario: admin
 Contraseña: 1234
 ```
 
-## Base de datos
+---
 
-La base utilizada es:
+## Base de datos SQLite
+
+La base de datos utilizada es:
 
 ```txt
 datos/dibujos.db
 ```
 
-Tablas principales:
+### Tablas principales
 
 ```txt
 usuarios
 trazos
 coordenadas
 ```
+
+---
 
 ## Estructura de tablas
 
@@ -68,27 +81,33 @@ CREATE TABLE coordenadas (
 );
 ```
 
+---
+
 ## Controles del lienzo
 
-| Acción                    | Control                       |
-| ------------------------- | ----------------------------- |
-| Dibujar                   | Click izquierdo + mover mouse |
-| Aumentar/disminuir grosor | Rueda del mouse               |
-| Color rojo                | Tecla R                       |
-| Color verde               | Tecla G                       |
-| Color azul                | Tecla B                       |
-| Borrar lienzo             | Escape                        |
-| Deshacer                  | Ctrl + Z                      |
+| Acción | Control |
+|---|---|
+| Dibujar | Click izquierdo + mover mouse |
+| Aumentar/disminuir grosor | Rueda del mouse |
+| Color rojo | Tecla `R` |
+| Color verde | Tecla `G` |
+| Color azul | Tecla `B` |
+| Borrar lienzo | `Escape` |
+| Deshacer | `Ctrl + Z` |
+
+---
 
 ## Clases principales
 
-| Clase      | Responsabilidad                                                   |
-| ---------- | ----------------------------------------------------------------- |
-| `Login`    | Pantalla inicial diseñada con Qt Designer y validación de usuario |
-| `Ventana`  | Ventana principal que contiene el lienzo                          |
-| `Pintura`  | Widget de dibujo a mano alzada                                    |
-| `Database` | Conexión, consultas y persistencia en SQLite                      |
-| `Logger`   | Registro de eventos en archivo de log                             |
+| Clase | Responsabilidad |
+|---|---|
+| `Login` | Pantalla inicial y validación de usuario |
+| `Ventana` | Ventana principal que contiene el lienzo |
+| `Pintura` | Widget de dibujo libre |
+| `Database` | Persistencia y consultas SQLite |
+| `Logger` | Registro de eventos en archivos |
+
+---
 
 ## Configuración del proyecto
 
@@ -100,14 +119,7 @@ QT += core gui widgets sql
 CONFIG += c++17
 ```
 
-## Ejecución
-
-1. Abrir el proyecto en Qt Creator.
-2. Verificar que exista la base `dibujos.db`.
-3. Compilar el proyecto.
-4. Iniciar sesión con el usuario de prueba.
-5. Dibujar en el lienzo.
-6. Cerrar y volver a abrir la aplicación para comprobar la reconstrucción del dibujo.
+---
 
 ## Logs
 
@@ -117,9 +129,72 @@ Los accesos se registran en:
 logs/accesos.log
 ```
 
-Ejemplo:
+### Ejemplos de registros
 
 ```txt
 [2026-05-19 18:30:10] ACCESO EXITOSO - usuario: admin
 [2026-05-19 18:32:41] INTENTO FALLIDO - usuario: admin
 ```
+
+---
+
+## Tecnologías utilizadas
+
+- C++
+- Qt Widgets
+- Qt Designer
+- Qt SQL
+- SQLite
+- Signals & Slots
+- Persistencia local
+
+---
+
+## Estructura del proyecto
+
+```text
+ejercicio09-Ogas/
+│
+├── codigo/
+├── capturas/
+├── datos/
+└── README.md
+```
+
+---
+
+## Capturas
+
+### Login
+
+![Login](capturas/login.png)
+
+### Lienzo de dibujo
+
+![Lienzo](capturas/lienzo.png)
+
+### Persistencia de dibujo
+
+![Persistencia](capturas/persistencia.png)
+
+---
+
+## Compilación y ejecución
+
+1. Abrir el archivo `.pro` desde Qt Creator.
+2. Verificar que exista la base `dibujos.db`.
+3. Configurar el kit de compilación.
+4. Ejecutar el proyecto.
+
+---
+
+## Estado
+
+✔ Ejercicio completado
+
+---
+
+## Autor
+
+**Avril Ogas**  
+Ingeniería en Informática
