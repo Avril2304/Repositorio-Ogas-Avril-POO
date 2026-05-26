@@ -22,11 +22,21 @@ Login :: Login(QWidget *parent) : QWidget (parent){
 
 
     QVBoxLayout *layoutPrincipal = new QVBoxLayout();
-    layoutPrincipal->addWidget(labelUsuario);
-    layoutPrincipal->addWidget(labelClave);
+
+    // FILA USUARIO
+    QHBoxLayout *filaUsuario = new QHBoxLayout();
+    filaUsuario->addWidget(labelUsuario);
+    filaUsuario->addWidget(editUsuario);
+
+    // FILA CONTRASEÑA
+    QHBoxLayout *filaClave = new QHBoxLayout();
+    filaClave->addWidget(labelClave);
+    filaClave->addWidget(editClave);
+
+    // AGREGAR TODO AL LAYOUT PRINCIPAL
+    layoutPrincipal->addLayout(filaUsuario);
+    layoutPrincipal->addLayout(filaClave);
     layoutPrincipal->addWidget(labelMensaje);
-    layoutPrincipal->addWidget(editUsuario);
-    layoutPrincipal->addWidget(editClave);
     layoutPrincipal->addWidget(botonIngreso);
 
     setLayout(layoutPrincipal);
