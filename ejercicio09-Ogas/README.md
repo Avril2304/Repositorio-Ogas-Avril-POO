@@ -177,6 +177,10 @@ ejercicio09-Ogas/
 
 ![Pantalla principal](capturas/pantalla-principal.png)
 
+### Distintas funciones
+
+![Distintas Funciones](capturas/distintas-funciones.png)
+
 ---
 
 ## Compilación y ejecución
