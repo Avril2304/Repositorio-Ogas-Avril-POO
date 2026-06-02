@@ -89,7 +89,7 @@ Implementa herencia, polimorfismo, validación de sintaxis, redefinición de eve
 ## Ejercicio 09 - Pintura con persistencia SQLite
 
 Aplicación de dibujo libre desarrollada con Qt y SQLite.
-Permite almacenar información utilizando base de datos local, registrar eventos y trabajar con persistencia de datos mediante Qt SQL.
+Permite iniciar sesión con usuarios almacenados en base de datos, dibujar a mano alzada, modificar color y grosor de los trazos, deshacer acciones y reconstruir automáticamente el dibujo a partir de las coordenadas almacenadas.
 
 ---
 
@@ -109,6 +109,7 @@ Incluye obstáculos dinámicos, pájaros con `QTimer` independiente, detección 
 - QNetworkAccessManager
 - SQLite
 - MySQL
+- Qt SQL
 - JSON / CSV
 - Python
 - Flask / FastAPI
@@ -125,7 +126,7 @@ Cada ejercicio incluye, según corresponda:
 - Capturas de pantalla
 - Recursos gráficos
 - Archivos de datos
-- Multimedia
+- Multimedia (videos explicativos cuando corresponda)
 - README individual con explicación del proyecto
 
 ---
