@@ -9,6 +9,7 @@ class ventana;
 }
 QT_END_NAMESPACE
 
+// Ventana de CV que se muestra luego del login correcto.
 class ventana : public Pantalla
 {
     Q_OBJECT

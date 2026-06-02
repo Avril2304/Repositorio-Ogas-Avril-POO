@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     manager = new QNetworkAccessManager(this);
 
+    // Cada 3 segundos se consulta el servidor para mantener el tablero sincronizado.
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::solicitarDatos);
     timer->start(3000);
@@ -37,12 +38,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 }
 
 void MainWindow::enviarOrden(QString urlStr) {
+    // Las ordenes se envian por POST aunque los datos viajan en la URL.
     QNetworkRequest request((QUrl(urlStr)));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     manager->post(request, QByteArray());
 }
 
 void MainWindow::solicitarDatos() {
+    // Descarga el JSON general del tablero desde el endpoint remoto.
     QNetworkReply *reply = manager->get(QNetworkRequest(QUrl("http://161.97.92.143:8001/tablero")));
     connect(reply, &QNetworkReply::finished, this, [this, reply]() {
         if (reply->error() == QNetworkReply::NoError) {
@@ -53,6 +56,7 @@ void MainWindow::solicitarDatos() {
 }
 
 void limpiarLayoutInterno(QLayout *layout) {
+    // Libera widgets y sub-layouts antes de dibujar una nueva version del tablero.
     if (!layout) return;
     while (QLayoutItem *item = layout->takeAt(0)) {
         if (QWidget *widget = item->widget()) {
@@ -67,12 +71,14 @@ void limpiarLayoutInterno(QLayout *layout) {
 void MainWindow::procesarRespuesta(QNetworkReply *reply) {
     limpiarLayoutInterno(layoutTablero);
 
+    // El servidor devuelve columnas y tarjetas separadas; se cruzan por column_id.
     QJsonDocument doc = QJsonDocument::fromJson(reply->readAll());
     QJsonObject root = doc.object();
     QJsonArray columnas = root["columnas"].toArray();
     QJsonArray tarjetas = root["tarjetas"].toArray();
 
     for (int i = 0; i < columnas.size(); ++i) {
+        // Se crea una columna visual por cada columna recibida en el JSON.
         QJsonObject col = columnas[i].toObject();
         int idCol = col["id"].toInt();
         QString nombreCol = col["name"].toString();
@@ -111,6 +117,7 @@ void MainWindow::procesarRespuesta(QNetworkReply *reply) {
         for (const QJsonValue &vTar : tarjetas) {
             QJsonObject tar = vTar.toObject();
             if (tar["column_id"].toInt() == idCol) {
+                // Solo se dibujan las tarjetas que pertenecen a la columna actual.
                 int idTar = tar["id"].toInt();
 
                 QWidget *card = new QWidget();

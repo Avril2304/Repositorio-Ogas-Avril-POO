@@ -2,6 +2,7 @@
 
 QRect Obstaculo::obtenerRectangulo() const
 {
+    // Rectangulo visual usado para dibujar el sprite.
     return QRect(x, y, ancho, alto);
 }
 
@@ -27,6 +28,7 @@ int Obstaculo::getAlto() const
 
 QRect Obstaculo::obtenerRectanguloColision() const
 {
+    // Margen pequeno para que la colision sea un poco mas justa.
     int margenX = 2;
     int margenY = 2;
 

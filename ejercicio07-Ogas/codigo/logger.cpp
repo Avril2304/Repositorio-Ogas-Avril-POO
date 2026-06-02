@@ -7,6 +7,7 @@
 
 void Logger::registrar(QString descripcion)
 {
+    // Crea la carpeta de datos si no existe y agrega el evento al final del log.
     QDir().mkpath("datos");
 
     QFile archivo("datos/eventos.log");

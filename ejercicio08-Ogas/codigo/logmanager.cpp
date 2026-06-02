@@ -7,6 +7,7 @@
 
 void LogManager::registrar(const QString &descripcion)
 {
+    // Crea la carpeta si falta y agrega una linea con fecha y descripcion.
     QDir().mkpath("datos");
 
     QFile archivo("datos/eventos.log");

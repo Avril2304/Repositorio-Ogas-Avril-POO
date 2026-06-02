@@ -9,6 +9,7 @@
 ModoBloqueado::ModoBloqueado(QWidget *parent)
     : Pantalla(parent)
 {
+    // El tiempo de bloqueo se puede modificar desde la configuracion.
     segundosRestantes = ConfigManager::obtenerValor("tiempo_bloqueo", "10").toInt();
 
     inicializarUI();
@@ -49,6 +50,7 @@ void ModoBloqueado::inicializarUI()
 
 void ModoBloqueado::conectarEventos()
 {
+    // Un temporizador descuenta un segundo en cada timeout.
     temporizador = new QTimer(this);
 
     connect(temporizador, SIGNAL(timeout()),
@@ -74,6 +76,7 @@ bool ModoBloqueado::validarEstado()
 
 void ModoBloqueado::actualizarTiempo()
 {
+    // Actualiza el mensaje y cierra la pantalla al terminar la espera.
     segundosRestantes--;
 
     lblTiempo->setText("Espere "

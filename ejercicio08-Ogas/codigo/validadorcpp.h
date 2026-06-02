@@ -3,6 +3,7 @@
 
 #include "validadorsintaxis.h"
 
+// Validador basico de reglas frecuentes de C++.
 class ValidadorCpp : public ValidadorSintaxis
 {
 public:

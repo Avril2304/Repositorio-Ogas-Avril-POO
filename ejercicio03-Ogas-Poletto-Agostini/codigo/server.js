@@ -16,12 +16,14 @@ const app  = express();
 const PORT = process.env.PORT || 5005;
 const DATA_FILE = path.join(__dirname, "drawing_state.json");
 
+// Permite recibir JSON grande porque el dibujo completo viaja como trazos.
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function loadState() {
+  // Si no hay archivo todavia, el lienzo empieza vacio.
   try {
     if (fs.existsSync(DATA_FILE)) {
       const raw = fs.readFileSync(DATA_FILE, "utf8");
@@ -34,6 +36,7 @@ function loadState() {
 }
 
 function saveState(state) {
+  // Persiste todo el estado para que sobreviva a reinicios del servidor.
   fs.writeFileSync(DATA_FILE, JSON.stringify(state), "utf8");
 }
 
@@ -41,6 +44,7 @@ function saveState(state) {
 // Returns current drawing state (all strokes)
 
 app.get("/drawing", (req, res) => {
+  // Devuelve el estado completo para que cada cliente pueda mezclarse.
   const state = loadState();
   res.json(state);
 });
@@ -51,13 +55,14 @@ app.get("/drawing", (req, res) => {
 app.post("/drawing", (req, res) => {
   const incoming = req.body;
 
+  // Se espera el mismo formato que produce DrawingModel::toJson().
   if (!incoming || !Array.isArray(incoming.strokes)) {
     return res.status(400).json({ error: "Invalid payload: expected { strokes: [] }" });
   }
 
   const current = loadState();
 
-  // Build index of existing stroke IDs
+  // Indice de IDs existentes para no duplicar trazos al guardar varias veces.
   const knownIds = new Set(current.strokes.map(s => s.id));
 
   let added = 0;
@@ -69,7 +74,7 @@ app.post("/drawing", (req, res) => {
     }
   }
 
-  // Sort by timestamp to preserve draw order
+  // Ordena por tiempo para conservar la superposicion visual del dibujo.
   current.strokes.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
 
   saveState(current);
@@ -83,6 +88,7 @@ app.post("/drawing", (req, res) => {
 // Clear all strokes (admin use)
 
 app.delete("/drawing", (req, res) => {
+  // Endpoint administrativo para reiniciar el lienzo compartido.
   saveState({ strokes: [] });
   res.json({ ok: true, message: "Canvas cleared." });
 });
@@ -90,6 +96,7 @@ app.delete("/drawing", (req, res) => {
 // ── Health ────────────────────────────────────────────────────────────────────
 
 app.get("/health", (req, res) => {
+  // Verificacion simple para comprobar que el servidor responde.
   const state = loadState();
   res.json({ status: "ok", strokeCount: state.strokes.length });
 });

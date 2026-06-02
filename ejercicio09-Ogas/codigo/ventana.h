@@ -7,11 +7,13 @@
 
 class Pintura;
 
+// Contenedor principal del lienzo de dibujo.
 class Ventana : public QWidget
 {
 private:
     int idUsuario;
 
+    // Lienzo asociado al usuario actual.
     Pintura *lienzo;
     Database db;
 

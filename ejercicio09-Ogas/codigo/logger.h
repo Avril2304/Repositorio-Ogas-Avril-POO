@@ -3,6 +3,7 @@
 
 #include <QString>
 
+// Logger de accesos exitosos y fallidos.
 class Logger
 {
 public:

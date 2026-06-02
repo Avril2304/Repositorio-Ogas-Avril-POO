@@ -12,11 +12,13 @@
 #include "cactus.h"
 #include "pajaro.h"
 
+// Widget principal del juego T-Rex: actualiza estado, dibuja y procesa controles.
 class Juego : public QWidget
 {
     Q_OBJECT
 
 private:
+    // Entidades principales del juego.
     TRex trex;
     Cactus cactus;
 
@@ -26,6 +28,7 @@ private:
     QPixmap imagenPajaro2;
     QPixmap imagenPajaro3;
 
+    // Obstaculos aereos creados dinamicamente.
     QVector<Pajaro*> pajaros;
 
     QTimer *timerJuego;
@@ -45,9 +48,9 @@ public:
     ~Juego();
 
 private:
-    void verificarColisiones();
-    void reiniciarJuego();
-    void eliminarPajaros();
+    void verificarColisiones(); // Detecta choques con cactus y pajaros.
+    void reiniciarJuego();      // Restaura puntaje, velocidad y entidades.
+    void eliminarPajaros();     // Libera memoria de pajaros creados.
 
 protected:
     void paintEvent(QPaintEvent *event) override;

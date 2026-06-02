@@ -6,11 +6,13 @@
 
 #include "obstaculo.h"
 
+// Obstaculo aereo con tipo, altura y velocidad aleatorios.
 class Pajaro : public QObject, public Obstaculo
 {
     Q_OBJECT
 
 private:
+    // Timer propio para mover el pajaro sin depender directamente del cactus.
     QTimer *timerMovimiento;
     int tipo;
 

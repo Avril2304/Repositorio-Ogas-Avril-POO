@@ -1,11 +1,14 @@
+# Módulo de Qt necesario para construir ventanas y controles gráficos.
 QT += widgets
 
+# Se compila el proyecto usando C++17.
 CONFIG += c++17
 
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+# Opción útil para detectar APIs obsoletas de Qt.
+# Para activarla, descomentar la siguiente línea.
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
+# Archivos fuente que forman parte de la aplicación.
 SOURCES += \
     filemanager.cpp \
     historymanager.cpp \
@@ -18,6 +21,7 @@ SOURCES += \
     taskformwidget.cpp \
     user.cpp
 
+# Archivos de cabecera con las declaraciones de clases.
 HEADERS += \
     filemanager.h \
     historymanager.h \
@@ -29,11 +33,11 @@ HEADERS += \
     taskformwidget.h \
     user.h
 
-
+# Configuración de traducciones generada por Qt Creator.
 CONFIG += lrelease
 CONFIG += embed_translations
 
-# Default rules for deployment.
+# Reglas de instalación/despliegue generadas por Qt Creator.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target

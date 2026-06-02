@@ -2,6 +2,7 @@
 
 bool ValidadorCpp::validarLinea(const QString &linea, QString &mensajeError)
 {
+    // Se validan reglas simples: lineas vacias, includes, comentarios y cierres validos.
     QString l = linea.trimmed();
 
     if (l.isEmpty()) return true;

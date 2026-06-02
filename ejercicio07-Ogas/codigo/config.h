@@ -3,6 +3,7 @@
 
 #include <QString>
 
+// Lector simple de valores guardados como clave=valor.
 class Config
 {
 public:

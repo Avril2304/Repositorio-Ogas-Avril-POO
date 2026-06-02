@@ -27,6 +27,7 @@ ventana::~ventana()
 
 void ventana::inicializarPantalla()
 {
+    // Estilos generales de la pantalla y sus controles principales.
     this->setStyleSheet(
         "QWidget {"
         "background-color: #1f1f1f;"
@@ -74,6 +75,7 @@ void ventana::inicializarPantalla()
 
     QPixmap imagenPrincipal("datos/imagen_principal.jpg");
 
+    // La imagen principal viene del login; si no existe, se muestra un texto alternativo.
     if (!imagenPrincipal.isNull()) {
         ui->lImagenPrincipal->setPixmap(
             imagenPrincipal.scaled(
@@ -98,6 +100,7 @@ void ventana::inicializarPantalla()
 
     QPixmap foto("recursos/foto.jpg");
 
+    // La foto se recorta con forma circular usando QPainter.
     if (!foto.isNull()) {
         QPixmap fotoEscalada = foto.scaled(
             130, 130,
@@ -143,6 +146,7 @@ void ventana::inicializarPantalla()
 
 void ventana::keyPressEvent(QKeyEvent *event)
 {
+    // Escape permite cerrar la pantalla rapidamente.
     if (event->key() == Qt::Key_Escape) {
         this->close();
     }

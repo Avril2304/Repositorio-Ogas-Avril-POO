@@ -9,6 +9,7 @@ Login :: Login(QWidget *parent) : QWidget (parent){
 
     setWindowTitle("Login");
 
+    // Se crean etiquetas, campos de texto y boton de ingreso.
     labelUsuario = new QLabel("Usuario: ");
     editUsuario = new QLineEdit();
 
@@ -41,6 +42,7 @@ Login :: Login(QWidget *parent) : QWidget (parent){
 
     setLayout(layoutPrincipal);
 
+    // Al presionar el boton se validan las credenciales.
     connect(botonIngreso, &QPushButton::clicked,
             this, &Login::validarLogin);
 
@@ -49,6 +51,7 @@ Login :: Login(QWidget *parent) : QWidget (parent){
 
 void Login::validarLogin()
 {
+    // Credenciales de prueba usadas para el ejercicio.
     QString usuario =editUsuario->text();
     QString clave =editClave->text();
 

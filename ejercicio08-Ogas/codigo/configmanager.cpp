@@ -6,6 +6,7 @@
 
 QString ConfigManager::obtenerValor(const QString &clave, const QString &valorPorDefecto)
 {
+    // Asegura que exista el archivo con valores iniciales antes de leerlo.
     QDir().mkpath("datos");
 
     QFile archivo("datos/config.txt");
@@ -28,6 +29,7 @@ QString ConfigManager::obtenerValor(const QString &clave, const QString &valorPo
         QTextStream entrada(&archivo);
 
         while (!entrada.atEnd()) {
+            // Ignora comentarios y lineas vacias para permitir configuraciones simples.
             QString linea = entrada.readLine().trimmed();
 
             if (linea.startsWith("#") || linea.isEmpty()) {

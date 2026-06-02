@@ -11,6 +11,12 @@
 #include <QMessageBox>
 #include <QCoreApplication>
 
+/*
+ * Constructor de la ventana de login.
+ *
+ * Define la apariencia de la pantalla, crea los campos de usuario y
+ * contraseña, y conecta el botón con el método que valida el ingreso.
+ */
 LoginWidget::LoginWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -91,8 +97,15 @@ LoginWidget::LoginWidget(QWidget *parent)
     connect(btnLogin, &QPushButton::clicked, this, &LoginWidget::handleLogin);
 }
 
+/*
+ * Valida el formulario de inicio de sesión.
+ *
+ * Si las credenciales son correctas, guarda la sesión, registra el evento
+ * en el historial y abre la ventana principal del planificador.
+ */
 void LoginWidget::handleLogin()
 {
+    // trim elimina espacios escritos accidentalmente antes o después del texto.
     QString username = txtUsername->text().trimmed();
     QString password = txtPassword->text().trimmed();
 
@@ -107,6 +120,7 @@ void LoginWidget::handleLogin()
     QString sessionPath = basePath + "/session.txt";
     QString historyPath = basePath + "/history.txt";
 
+    // La validación se delega a FileManager para centralizar el acceso a archivos.
     bool valid = FileManager::validateUser(usersPath, username, password);
 
     if (valid)

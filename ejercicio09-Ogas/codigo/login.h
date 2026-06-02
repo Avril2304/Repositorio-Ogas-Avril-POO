@@ -11,6 +11,7 @@ class Login;
 }
 QT_END_NAMESPACE
 
+// Login que valida usuarios contra la base SQLite.
 class Login : public QWidget
 {
     Q_OBJECT
@@ -18,6 +19,7 @@ class Login : public QWidget
 private:
     Ui::Login *ui;
 
+    // Base usada para autenticar y obtener el id del usuario.
     Database db;
 
     int idUsuario;
@@ -27,7 +29,7 @@ public:
     ~Login();
 
 private slots:
-    void validarLogin();
+    void validarLogin(); // Abre la ventana de dibujo si las credenciales son validas.
 };
 
 #endif

@@ -17,6 +17,13 @@
 #include <QListWidget>
 #include <QMessageBox>
 
+/*
+ * Constructor de la ventana principal.
+ *
+ * Arma la interfaz completa del planificador: filtros, grilla de tareas,
+ * botones de acción e historial. Al finalizar, carga los datos persistidos
+ * y conecta los eventos de Qt con sus slots correspondientes.
+ */
 MainWidget::MainWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -180,6 +187,12 @@ MainWidget::~MainWidget()
 {
 }
 
+/*
+ * Carga las tareas guardadas en tasks.csv.
+ *
+ * El archivo se busca en la carpeta del ejecutable para mantener juntos
+ * los datos generados por la aplicación.
+ */
 void MainWidget::loadTasks()
 {
     QString basePath = QCoreApplication::applicationDirPath();
@@ -187,6 +200,12 @@ void MainWidget::loadTasks()
     tasks = FileManager::loadTasks(tasksPath);
 }
 
+/*
+ * Guarda el estado actual del vector de tareas.
+ *
+ * Se llama después de agregar, editar o eliminar una tarea para que
+ * los cambios no se pierdan al cerrar la aplicación.
+ */
 void MainWidget::saveTasks()
 {
     QString basePath = QCoreApplication::applicationDirPath();
@@ -194,6 +213,12 @@ void MainWidget::saveTasks()
     FileManager::saveTasks(tasksPath, tasks);
 }
 
+/*
+ * Actualiza la lista visual de historial.
+ *
+ * Primero limpia el QListWidget y luego agrega cada línea leída
+ * desde el archivo history.txt.
+ */
 void MainWidget::loadHistory()
 {
     QString basePath = QCoreApplication::applicationDirPath();
@@ -208,6 +233,12 @@ void MainWidget::loadHistory()
     }
 }
 
+/*
+ * Calcula un ID nuevo para una tarea.
+ *
+ * Busca el mayor ID existente y suma uno. Así se evita repetir
+ * identificadores aunque se hayan eliminado tareas intermedias.
+ */
 int MainWidget::getNextTaskId() const
 {
     int maxId = 0;
@@ -223,8 +254,16 @@ int MainWidget::getNextTaskId() const
     return maxId + 1;
 }
 
+/*
+ * Reconstruye la grilla de tareas según los filtros seleccionados.
+ *
+ * Como los datos pueden cambiar después de agregar, editar, eliminar
+ * o filtrar, se eliminan los widgets anteriores y se vuelve a dibujar
+ * la tabla completa.
+ */
 void MainWidget::refreshGrid()
 {
+    // Limpia todos los widgets cargados previamente en la grilla.
     QLayoutItem *item;
     while ((item = gridLayout->takeAt(0)) != nullptr)
     {
@@ -273,6 +312,7 @@ void MainWidget::refreshGrid()
 
     int row = 1;
 
+    // Solo se muestran las tareas que cumplen con ambos filtros activos.
     for (int i = 0; i < tasks.size(); i++)
     {
         bool cumpleEstado = (filtroEstado == "Todos" || tasks[i].getEstado() == filtroEstado);
@@ -353,6 +393,7 @@ void MainWidget::refreshGrid()
             accionesLayout->addWidget(btnEliminar);
             accionesLayout->addWidget(btnNotas);
 
+            // Cada botón captura el ID de la tarea para ejecutar la acción correcta.
             connect(btnEliminar, &QPushButton::clicked, this, [=]() {
                 deleteTask(tasks[i].getId());
             });
@@ -372,11 +413,22 @@ void MainWidget::refreshGrid()
     }
 }
 
+/*
+ * Aplica los filtros de estado y prioridad.
+ *
+ * Los filtros no modifican el vector de tareas: solamente vuelven a
+ * dibujar la grilla con los elementos que corresponden.
+ */
 void MainWidget::applyFilters()
 {
     refreshGrid();
 }
 
+/*
+ * Abre el formulario para cargar un nuevo trabajo práctico.
+ *
+ * Cuando el formulario emite taskSaved, la tarea nueva se recibe en addTask.
+ */
 void MainWidget::openAddTaskForm()
 {
     TaskFormWidget *form = new TaskFormWidget();
@@ -385,6 +437,12 @@ void MainWidget::openAddTaskForm()
     connect(form, &TaskFormWidget::taskSaved, this, &MainWidget::addTask);
 }
 
+/*
+ * Agrega una tarea nueva al sistema.
+ *
+ * El formulario crea la tarea con ID 0; acá se asigna el ID definitivo,
+ * se guarda en archivo, se registra el historial y se refresca la vista.
+ */
 void MainWidget::addTask(Task task)
 {
     task.setId(getNextTaskId());
@@ -399,6 +457,12 @@ void MainWidget::addTask(Task task)
     refreshGrid();
 }
 
+/*
+ * Reemplaza una tarea existente por los datos editados.
+ *
+ * Se busca por ID para mantener la posición lógica de la tarea y evitar
+ * modificar otra entrada por accidente.
+ */
 void MainWidget::updateTask(Task task)
 {
     for (int i = 0; i < tasks.size(); i++)
@@ -419,6 +483,12 @@ void MainWidget::updateTask(Task task)
     }
 }
 
+/*
+ * Elimina una tarea después de pedir confirmación.
+ *
+ * Si el usuario acepta, se quita del vector, se persiste el cambio
+ * y se registra la acción en el historial.
+ */
 void MainWidget::deleteTask(int id)
 {
     for (int i = 0; i < tasks.size(); i++)
@@ -450,6 +520,11 @@ void MainWidget::deleteTask(int id)
     }
 }
 
+/*
+ * Abre el formulario en modo edición para la tarea indicada.
+ *
+ * El constructor recibe la tarea actual para precargar sus campos.
+ */
 void MainWidget::openEditTaskForm(int id)
 {
     for (int i = 0; i < tasks.size(); i++)
@@ -465,6 +540,12 @@ void MainWidget::openEditTaskForm(int id)
     }
 }
 
+/*
+ * Abre la ventana de notas de una tarea.
+ *
+ * Las notas se guardan en un archivo independiente cuyo nombre incluye
+ * el ID de la tarea.
+ */
 void MainWidget::openNotes(int id)
 {
     NotesWidget *notes = new NotesWidget(id);
@@ -476,6 +557,12 @@ void MainWidget::openNotes(int id)
     loadHistory();
 }
 
+/*
+ * Cierra la sesión actual.
+ *
+ * Limpia el archivo de sesión, registra la salida y vuelve a mostrar
+ * la ventana de login.
+ */
 void MainWidget::logout()
 {
     QString basePath = QCoreApplication::applicationDirPath();

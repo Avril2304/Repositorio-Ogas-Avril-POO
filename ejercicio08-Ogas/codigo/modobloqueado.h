@@ -11,6 +11,7 @@
 #include <QResizeEvent>
 #include <QCloseEvent>
 
+// Pantalla temporal que cuenta los segundos antes de permitir otro login.
 class ModoBloqueado : public Pantalla
 {
     Q_OBJECT
@@ -26,7 +27,7 @@ public:
     void registrarEvento(const QString &descripcion) override;
 
 signals:
-    void bloqueoFinalizado();
+    void bloqueoFinalizado(); // Avisa al login que puede mostrarse nuevamente.
 
 private slots:
     void actualizarTiempo();

@@ -44,6 +44,7 @@ void Login::conectarEventos()
 
 void Login::cargarDatos()
 {
+    // Permite cambiar usuario y clave desde datos/config.txt.
     usuarioCorrecto = ConfigManager::obtenerValor("usuario", "admin");
     passwordCorrecta = ConfigManager::obtenerValor("password", "1234");
 
@@ -65,6 +66,7 @@ void Login::validarLogin()
 
         registrarEvento("Login correcto");
 
+        // Login correcto: abre el editor principal en pantalla completa.
         Pantalla *editor = new EditorPrincipal();
         editor->showFullScreen();
 
@@ -86,12 +88,14 @@ void Login::validarLogin()
 
             registrarEvento("Usuario bloqueado temporalmente");
 
+            // Tras tres fallos se oculta el login y se muestra la pantalla de espera.
             Pantalla *bloqueado = new ModoBloqueado();
 
             ModoBloqueado *modo = dynamic_cast<ModoBloqueado*>(bloqueado);
 
             if (modo != nullptr) {
 
+                // Cuando termina el bloqueo, se reinician los intentos y vuelve el login.
                 connect(modo, &ModoBloqueado::bloqueoFinalizado,
                         this, [this]() {
 

@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Panel de monitoreo VPS");
     resize(850, 600);
 
+    // Estilos globales de la ventana y de los widgets principales.
     setStyleSheet(
         "QWidget {"
         "   background-color: #111827;"
@@ -86,11 +87,13 @@ MainWindow::MainWindow(QWidget *parent)
     endpointEdit->setPlaceholderText("http://127.0.0.1:8000/health");
     endpointEdit->setText("http://127.0.0.1:8000/health");
 
+    // El intervalo define cada cuantos segundos se consulta el endpoint.
     intervalSpin = new QSpinBox;
     intervalSpin->setRange(1, 3600);
     intervalSpin->setValue(10);
     intervalSpin->setSuffix(" s");
 
+    // El umbral dispara una alerta si memoria o disco superan este porcentaje.
     thresholdSpin = new QSpinBox;
     thresholdSpin->setRange(1, 100);
     thresholdSpin->setValue(80);
@@ -116,6 +119,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     configBox->setLayout(configLayout);
 
+    // Indicador grande que resume el estado del VPS: OK, ALERTA o CAIDO.
     generalStatusLabel = new QLabel("DESCONOCIDO");
     generalStatusLabel->setAlignment(Qt::AlignCenter);
     generalStatusLabel->setMinimumHeight(75);
@@ -177,9 +181,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     setLayout(mainLayout);
 
+    // Los botones delegan acciones en slots de esta ventana.
     connect(refreshButton, &QPushButton::clicked, this, &MainWindow::onManualRefresh);
     connect(applyButton, &QPushButton::clicked, this, &MainWindow::onApplySettings);
 
+    // El servicio comunica resultados y eventos sin depender de la interfaz.
     connect(&monitorService, &MonitorService::healthUpdated, this, &MainWindow::updatePanel);
     connect(&monitorService, &MonitorService::newEvent, this, &MainWindow::addEvent);
 
@@ -191,11 +197,13 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::onManualRefresh()
 {
+    // Fuerza una consulta inmediata sin esperar al proximo timeout del timer.
     monitorService.checkNow();
 }
 
 void MainWindow::onApplySettings()
 {
+    // Copia los valores actuales de la interfaz al servicio de monitoreo.
     monitorService.setEndpoint(endpointEdit->text());
     monitorService.setInterval(intervalSpin->value());
     monitorService.setThreshold(thresholdSpin->value());
@@ -205,12 +213,14 @@ void MainWindow::onApplySettings()
 
 void MainWindow::updatePanel(const ServerHealth &health)
 {
+    // Actualiza las metricas visibles con los datos recibidos del endpoint.
     uptimeValueLabel->setText(health.uptime);
     loadValueLabel->setText(QString::number(health.load, 'f', 2));
     memoryValueLabel->setText(QString::number(health.memory) + " %");
     diskValueLabel->setText(QString::number(health.disk) + " %");
     lastCheckValueLabel->setText(health.checkedAt);
 
+    // Cambia texto y color del indicador segun el estado calculado.
     if (health.status == "ok") {
         generalStatusLabel->setText("OK");
         generalStatusLabel->setStyleSheet(
@@ -258,8 +268,10 @@ void MainWindow::updatePanel(const ServerHealth &health)
 
 void MainWindow::addEvent(const QString &eventText)
 {
+    // Inserta el evento mas reciente arriba para que sea lo primero visible.
     historyList->insertItem(0, eventText);
 
+    // Mantiene un historial corto para no saturar la lista.
     if (historyList->count() > 8) {
         delete historyList->takeItem(historyList->count() - 1);
     }

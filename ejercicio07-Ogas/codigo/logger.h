@@ -3,6 +3,7 @@
 
 #include <QString>
 
+// Guarda eventos importantes en un archivo de log.
 class Logger
 {
 public:

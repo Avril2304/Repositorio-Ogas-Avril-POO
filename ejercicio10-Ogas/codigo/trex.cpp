@@ -2,6 +2,7 @@
 
 TRex::TRex()
 {
+    // Estado inicial del personaje sobre el suelo.
     x = 80;
     suelo = 300;
 
@@ -19,6 +20,7 @@ TRex::TRex()
 
 void TRex::saltar()
 {
+    // Solo puede saltar si no esta ya en el aire.
     if (!saltando)
     {
         saltando = true;
@@ -28,6 +30,7 @@ void TRex::saltar()
 
 void TRex::agacharse()
 {
+    // Agacharse cambia la altura y reposiciona el sprite sobre el suelo.
     if (!saltando)
     {
         agachado = true;
@@ -48,6 +51,7 @@ void TRex::levantarse()
 
 void TRex::actualizar()
 {
+    // Aplica velocidad vertical y gravedad hasta volver al suelo.
     if (saltando)
     {
         y += velocidadVertical;
@@ -64,6 +68,7 @@ void TRex::actualizar()
 
 void TRex::adelantar()
 {
+    // Limita el avance para que el jugador no salga demasiado hacia adelante.
     x += 15;
 
     if (x > 250)
@@ -74,6 +79,7 @@ void TRex::adelantar()
 
 void TRex::frenar()
 {
+    // Limita el retroceso para mantener al jugador dentro de la pantalla.
     x -= 15;
 
     if (x < 20)
@@ -114,6 +120,7 @@ bool TRex::estaAgachado() const
 
 QRect TRex::obtenerRectanguloColision() const
 {
+    // Caja de colision un poco menor que el sprite.
     int margenIzquierdo = 5;
     int margenDerecho = 5;
     int margenArriba = 5;

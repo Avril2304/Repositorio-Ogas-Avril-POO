@@ -7,6 +7,7 @@
 
 void Logger::registrar(const QString &mensaje)
 {
+    // Guarda cada acceso con fecha y hora en logs/accesos.log.
     QDir().mkpath("logs");
 
     QFile archivo("logs/accesos.log");

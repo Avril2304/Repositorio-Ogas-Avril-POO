@@ -4,6 +4,7 @@
 Pajaro::Pajaro(QObject *parent)
     : QObject(parent)
 {
+    // Se elige un tipo para variar tamano y sprite.
     tipo = QRandomGenerator::global()->bounded(3);
 
     if (tipo == 0)
@@ -24,6 +25,7 @@ Pajaro::Pajaro(QObject *parent)
 
     x = 800;
 
+    // Altura aleatoria para obligar al jugador a saltar o agacharse.
     int alturaAleatoria = QRandomGenerator::global()->bounded(3);
 
     if (alturaAleatoria == 0)
@@ -39,6 +41,7 @@ Pajaro::Pajaro(QObject *parent)
         y = 250;
     }
 
+    // Velocidad inicial distinta para que los obstaculos no sean siempre iguales.
     velocidad = QRandomGenerator::global()->bounded(6, 11);
 
     timerMovimiento = new QTimer(this);
@@ -56,6 +59,7 @@ Pajaro::~Pajaro()
 
 void Pajaro::mover()
 {
+    // Se desplaza hacia la izquierda en cada tick del timer.
     x -= velocidad;
 }
 
@@ -71,6 +75,7 @@ bool Pajaro::estaFueraDePantalla() const
 
 QRect Pajaro::obtenerRectanguloColision() const
 {
+    // Rectangulo de colision reducido para evitar choques visualmente injustos.
     int margenX = 4;
     int margenY = 4;
 

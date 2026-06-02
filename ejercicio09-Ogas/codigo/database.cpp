@@ -13,6 +13,7 @@ Database::Database(QObject *parent)
 
 bool Database::conectar()
 {
+    // La base se guarda en datos/dibujos.db dentro del directorio de ejecucion.
     db = QSqlDatabase::addDatabase("QSQLITE");
 
     QString ruta = QDir::currentPath() + "/datos/dibujos.db";
@@ -30,6 +31,7 @@ bool Database::conectar()
 
 bool Database::validarUsuario(const QString &usuario, const QString &password, int &idUsuario)
 {
+    // Devuelve el id del usuario autenticado para asociar sus dibujos.
     QSqlQuery query;
 
     query.prepare("SELECT id_usuario FROM usuarios WHERE usuario = :usuario AND password = :password");
@@ -51,6 +53,7 @@ bool Database::validarUsuario(const QString &usuario, const QString &password, i
 
 int Database::guardarTrazo(int idUsuario, const QColor &color, int grosor)
 {
+    // Primero se guarda el trazo y luego sus coordenadas en otra tabla.
     QSqlQuery query;
 
     query.prepare("INSERT INTO trazos(id_usuario, color, grosor, fecha) "
@@ -71,6 +74,7 @@ int Database::guardarTrazo(int idUsuario, const QColor &color, int grosor)
 
 bool Database::guardarCoordenada(int idTrazo, const QPoint &punto, int orden)
 {
+    // El orden permite reconstruir la linea con los puntos en la secuencia original.
     QSqlQuery query;
 
     query.prepare("INSERT INTO coordenadas(id_trazo, x, y, orden_punto) "
@@ -91,6 +95,7 @@ bool Database::guardarCoordenada(int idTrazo, const QPoint &punto, int orden)
 
 QVector<TrazoDB> Database::cargarTrazos(int idUsuario)
 {
+    // Recupera los trazos del usuario y luego sus coordenadas asociadas.
     QVector<TrazoDB> lista;
 
     QSqlQuery queryTrazos;
@@ -145,6 +150,7 @@ QVector<TrazoDB> Database::cargarTrazos(int idUsuario)
 
 bool Database::borrarTrazosUsuario(int idUsuario)
 {
+    // Borra primero coordenadas y despues trazos para respetar la relacion entre tablas.
     QSqlQuery buscarTrazos;
 
     buscarTrazos.prepare(

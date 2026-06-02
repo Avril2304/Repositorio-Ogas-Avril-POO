@@ -7,6 +7,12 @@
 #include <QLabel>
 #include <QMessageBox>
 
+/*
+ * Constructor para crear una tarea nueva.
+ *
+ * editMode queda en false porque todavía no existe una tarea guardada.
+ * El ID definitivo se asigna luego desde MainWidget.
+ */
 TaskFormWidget::TaskFormWidget(QWidget *parent)
     : QWidget(parent), editMode(false)
 {
@@ -90,6 +96,12 @@ TaskFormWidget::TaskFormWidget(QWidget *parent)
     connect(btnGuardar, &QPushButton::clicked, this, &TaskFormWidget::handleSave);
 }
 
+/*
+ * Constructor para editar una tarea existente.
+ *
+ * Recibe una copia de la tarea actual, activa editMode y precarga
+ * todos los campos del formulario con sus datos.
+ */
 TaskFormWidget::TaskFormWidget(Task task, QWidget *parent)
     : QWidget(parent), currentTask(task), editMode(true)
 {
@@ -179,6 +191,12 @@ TaskFormWidget::TaskFormWidget(Task task, QWidget *parent)
     connect(btnGuardar, &QPushButton::clicked, this, &TaskFormWidget::handleSave);
 }
 
+/*
+ * Valida los campos y genera el objeto Task resultante.
+ *
+ * Si el formulario está en modo edición conserva el ID original.
+ * Luego emite taskSaved para que MainWidget decida si agrega o actualiza.
+ */
 void TaskFormWidget::handleSave()
 {
     QString titulo = txtTitulo->text().trimmed();

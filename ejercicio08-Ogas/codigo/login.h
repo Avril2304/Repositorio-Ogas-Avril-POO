@@ -13,6 +13,7 @@ namespace Ui {
 class Login;
 }
 
+// Login del editor, con bloqueo temporal despues de tres intentos fallidos.
 class Login : public Pantalla
 {
     Q_OBJECT
@@ -28,7 +29,7 @@ public:
     void registrarEvento(const QString &descripcion) override;
 
 private slots:
-    void validarLogin();
+    void validarLogin(); // Comprueba credenciales y decide si abre el editor o bloquea.
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -41,6 +42,7 @@ protected:
 private:
     Ui::Login *ui;
 
+    // Credenciales cargadas desde configuracion y contador de intentos.
     QString usuarioCorrecto;
     QString passwordCorrecta;
     int intentosFallidos;

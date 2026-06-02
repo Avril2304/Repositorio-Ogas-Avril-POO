@@ -3,6 +3,7 @@
 
 #include "obstaculo.h"
 
+// Obstaculo terrestre que se reinicia al salir de pantalla.
 class Cactus : public Obstaculo
 {
 public:

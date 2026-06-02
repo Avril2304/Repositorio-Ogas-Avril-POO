@@ -7,7 +7,7 @@
 #include <QImage>
 #include "DrawingModel.h"
 
-// Handles all VPS communication and collaborative sync
+// Coordina la comunicacion con el VPS y la sincronizacion colaborativa.
 class SyncManager : public QObject {
     Q_OBJECT
 
@@ -18,10 +18,10 @@ public:
     void startPolling(int intervalMs = 4000);
     void stopPolling();
 
-    // Save current model to VPS
+    // Envia el modelo local actual al VPS.
     void saveToServer();
 
-    // Fetch latest from VPS and merge
+    // Descarga el estado remoto y lo mezcla con el modelo local.
     void fetchFromServer();
 
 signals:

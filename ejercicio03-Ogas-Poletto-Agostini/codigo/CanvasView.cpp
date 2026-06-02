@@ -15,6 +15,7 @@ CanvasView::CanvasView(DrawingModel *model, QWidget *parent)
 
     m_color = colorForIndex(0);
 
+    // Cada cambio del modelo invalida el cache local del lienzo.
     connect(m_model, &DrawingModel::modelChanged, this, [this]() {
         rebuildCanvas();
         update();
@@ -93,6 +94,7 @@ static QVector<QPointF> catmullRom(const QVector<QPointF> &pts, int segs = 8) {
     QVector<QPointF> out;
     out.reserve(pts.size() * segs);
 
+    // Interpolacion Catmull-Rom: suaviza el trazo sin perder sus puntos base.
     auto cr = [](QPointF p0, QPointF p1, QPointF p2, QPointF p3, float t) {
         float t2 = t*t, t3 = t2*t;
         return QPointF(
@@ -117,6 +119,7 @@ void CanvasView::drawCurrentStrokeToOverlay() {
     Stroke *s = m_model->currentStroke();
     if (!s || s->points.isEmpty()) return;
 
+    // El overlay se redibuja desde cero para mostrar solo el trazo en curso.
     m_overlayImage.fill(Qt::transparent);
     QPainter painter(&m_overlayImage);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -124,6 +127,7 @@ void CanvasView::drawCurrentStrokeToOverlay() {
     auto smooth = catmullRom(s->points);
 
     if (s->isEraser) {
+        // La goma limpia pixeles del overlay para previsualizar el borrado.
         painter.setCompositionMode(QPainter::CompositionMode_Clear);
         painter.setPen(Qt::NoPen);
         painter.setBrush(Qt::black);
@@ -152,28 +156,29 @@ void CanvasView::paintEvent(QPaintEvent *) {
     QPainter painter(this);
     painter.drawImage(0, 0, m_canvasImage);
 
-    // Overlay: current stroke being drawn
+    // Se pinta encima el trazo actual; al soltar el mouse pasa al modelo.
     if (m_drawing || m_erasing) {
         if (m_erasing) {
-            // For eraser overlay, composite it correctly
+            // La goma usa el modo inverso para que la previsualizacion borre.
             painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
         }
         painter.drawImage(0, 0, m_overlayImage);
         painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
     }
 
-    // Draw cursor indicator
-    // (cursor is handled by Qt)
+    // El cursor visual lo maneja Qt mediante setCursor().
 }
 
 // ── Mouse events ──────────────────────────────────────────────────────────────
 
 void CanvasView::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
+        // Boton izquierdo: dibujar con el color y grosor seleccionados.
         m_drawing = true;
         m_erasing = false;
         m_model->beginStroke(event->pos(), m_color, m_thickness, false);
     } else if (event->button() == Qt::RightButton) {
+        // Boton derecho: borrar con un grosor mayor para que sea comodo.
         m_erasing = true;
         m_drawing = false;
         m_model->beginStroke(event->pos(), Qt::white, m_thickness * 2, true);

@@ -16,6 +16,7 @@
 #include <QResizeEvent>
 #include <QFocusEvent>
 
+// Editor multilenguaje con validacion, resaltado y exportacion a imagen.
 class EditorPrincipal : public Pantalla
 {
     Q_OBJECT
@@ -31,10 +32,10 @@ public:
     void registrarEvento(const QString &descripcion) override;
 
 private slots:
-    void cambiarValidador();
-    void validarCodigoActual();
-    void validarLineaAbandonada();
-    void exportarCodigoJPG();
+    void cambiarValidador();       // Cambia la estrategia de validacion segun el combo.
+    void validarCodigoActual();    // Recorre el texto y marca la primera linea invalida.
+    void validarLineaAbandonada(); // Valida cuando el cursor pasa a otra linea.
+    void exportarCodigoJPG();      // Genera una imagen JPG con el codigo escrito.
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -52,6 +53,7 @@ private:
     QPushButton *btnSalir;
     QString rutaExportacion;
 
+    // Validador polimorfico usado por el lenguaje seleccionado.
     ValidadorSintaxis *validadorActual;
 
     int lineaActual;

@@ -7,6 +7,7 @@
 Ventana::Ventana(int idUser, QWidget *parent)
     : QWidget(parent)
 {
+    // El id de usuario permite cargar solo los dibujos de esa cuenta.
     idUsuario = idUser;
 
     db.conectar();
@@ -25,6 +26,7 @@ Ventana::Ventana(int idUser, QWidget *parent)
         "font-size: 14px;"
         );
 
+    // El lienzo recibe la base para guardar cada trazo que se dibuje.
     lienzo = new Pintura(idUsuario, &db);
     lienzo->cargarDesdeBase();
 

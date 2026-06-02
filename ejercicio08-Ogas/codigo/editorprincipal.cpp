@@ -37,6 +37,7 @@ void EditorPrincipal::inicializarUI()
 {
     setWindowTitle("Ejercicio 08 - Editor Multilenguaje");
 
+    // Panel izquierdo: selector de lenguaje, editor y acciones principales.
     comboLenguaje = new QComboBox(this);
     comboLenguaje->addItem("C++");
     comboLenguaje->addItem("Python");
@@ -57,6 +58,7 @@ void EditorPrincipal::inicializarUI()
     layoutEditor->addWidget(btnExportar);
     layoutEditor->addWidget(btnSalir);
 
+    // Panel derecho: datos personales con estilo de perfil profesional.
     QLabel *lblFoto = new QLabel("AO", this);
     lblFoto->setFixedSize(120, 120);
     lblFoto->setAlignment(Qt::AlignCenter);
@@ -158,6 +160,7 @@ void EditorPrincipal::inicializarUI()
 
 void EditorPrincipal::conectarEventos()
 {
+    // El cambio de lenguaje reemplaza el validador activo.
     connect(comboLenguaje, SIGNAL(currentIndexChanged(int)),
             this, SLOT(cambiarValidador()));
 
@@ -177,6 +180,7 @@ void EditorPrincipal::conectarEventos()
 
 void EditorPrincipal::cargarDatos()
 {
+    // Lee lenguaje por defecto y ruta de exportacion desde configuracion.
     QString lenguajeDefecto = ConfigManager::obtenerValor("lenguaje_defecto", "C++");
 
     int indice = comboLenguaje->findText(lenguajeDefecto);
@@ -198,6 +202,7 @@ bool EditorPrincipal::validarEstado()
 
 void EditorPrincipal::cambiarValidador()
 {
+    // Se elimina el validador anterior para evitar memoria sin liberar.
     delete validadorActual;
     validadorActual = nullptr;
 
@@ -223,6 +228,7 @@ void EditorPrincipal::validarCodigoActual()
         return;
     }
 
+    // Antes de validar se quita cualquier resaltado previo.
     limpiarResaltado();
 
     QString codigo = editorCodigo->toPlainText();
@@ -235,6 +241,7 @@ void EditorPrincipal::validarCodigoActual()
 
             int numeroLinea = i + 1;
 
+            // La validacion se detiene en el primer error encontrado.
             resaltarLineaError(numeroLinea);
 
             lblMensaje->setText("Línea "
@@ -289,6 +296,7 @@ void EditorPrincipal::closeEvent(QCloseEvent *event)
 
 void EditorPrincipal::limpiarResaltado()
 {
+    // Se bloquean senales para que el cambio de formato no dispare validaciones.
     editorCodigo->blockSignals(true);
 
     QTextCursor cursor(editorCodigo->document());
@@ -305,6 +313,7 @@ void EditorPrincipal::limpiarResaltado()
 
 void EditorPrincipal::resaltarLineaError(int numeroLinea)
 {
+    // Busca el bloque de texto y aplica un formato rojo a la linea completa.
     editorCodigo->blockSignals(true);
 
     QTextBlock bloque = editorCodigo->document()->findBlockByNumber(numeroLinea - 1);
@@ -334,6 +343,7 @@ void EditorPrincipal::validarLineaAbandonada()
 
     int nuevaLinea = editorCodigo->textCursor().blockNumber();
 
+    // Solo valida cuando el cursor abandona la linea anterior.
     if (nuevaLinea == lineaActual) {
         return;
     }
@@ -345,6 +355,7 @@ void EditorPrincipal::validarLineaAbandonada()
 
 void EditorPrincipal::exportarCodigoJPG()
 {
+    // Convierte el texto del editor en una imagen con numeracion de lineas.
     QString codigo = editorCodigo->toPlainText();
 
     if (codigo.trimmed().isEmpty()) {
@@ -380,6 +391,7 @@ void EditorPrincipal::exportarCodigoJPG()
     y += 30;
 
     for (int i = 0; i < lineas.size(); i++) {
+        // Se dibuja cada linea con su numero para que la exportacion sea legible.
         QString numero = QString::number(i + 1).rightJustified(3, ' ');
         QString texto = numero + " | " + lineas[i];
 

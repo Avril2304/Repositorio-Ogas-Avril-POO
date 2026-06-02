@@ -5,6 +5,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
+// Servicio encargado de consultar y procesar el clima remoto.
 class Clima : public QObject
 {
     Q_OBJECT
@@ -12,10 +13,10 @@ class Clima : public QObject
 public:
     explicit Clima(QObject *parent = nullptr);
 
-    void consultarClima(QString ciudad, QString apiKey);
+    void consultarClima(QString ciudad, QString apiKey); // Inicia la consulta a OpenWeather.
 
 signals:
-    void climaActualizado(QString temperatura, QString descripcion);
+    void climaActualizado(QString temperatura, QString descripcion); // Resultado listo para mostrar.
     void errorClima(QString mensaje);
 
 private slots:

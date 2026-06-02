@@ -3,6 +3,7 @@
 
 #include <QRect>
 
+// Clase base para elementos que se mueven hacia el jugador.
 class Obstaculo
 {
 protected:
@@ -15,10 +16,10 @@ protected:
 public:
     virtual ~Obstaculo() {}
 
-    virtual void mover() = 0;
+    virtual void mover() = 0; // Cada obstaculo define su propia forma de avanzar.
 
     QRect obtenerRectangulo() const;
-    virtual QRect obtenerRectanguloColision() const;
+    virtual QRect obtenerRectanguloColision() const; // Rectangulo ajustado para colisiones.
 
     int getX() const;
     int getY() const;

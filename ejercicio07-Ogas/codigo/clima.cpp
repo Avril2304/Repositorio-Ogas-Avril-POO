@@ -9,12 +9,14 @@ Clima::Clima(QObject *parent) : QObject(parent)
 {
     manager = new QNetworkAccessManager(this);
 
+    // Todas las respuestas HTTP se centralizan en el mismo slot.
     connect(manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(procesarRespuesta(QNetworkReply*)));
 }
 
 void Clima::consultarClima(QString ciudad, QString apiKey)
 {
+    // Arma la URL con ciudad, unidades metricas y clave de API.
     QString url = "https://api.openweathermap.org/data/2.5/weather?q="
                   + ciudad +
                   "&units=metric&appid=" + apiKey;
@@ -26,6 +28,7 @@ void Clima::consultarClima(QString ciudad, QString apiKey)
 
 void Clima::procesarRespuesta(QNetworkReply *reply)
 {
+    // Si la red falla, se informa un clima simulado para mantener la app usable.
     if (reply->error() != QNetworkReply::NoError) {
         emit climaActualizado("20 °C", "modo offline - clima simulado");
         reply->deleteLater();
@@ -34,6 +37,7 @@ void Clima::procesarRespuesta(QNetworkReply *reply)
 
     QByteArray data = reply->readAll();
 
+    // Del JSON solo se toman temperatura y descripcion principal.
     QJsonDocument doc = QJsonDocument::fromJson(data);
     QJsonObject obj = doc.object();
 

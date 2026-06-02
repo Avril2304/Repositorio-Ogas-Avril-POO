@@ -27,6 +27,7 @@ login::login(QWidget *parent)
     ui->lMensaje->setText("Ingrese sus datos");
     ui->lClima->setText("Cargando clima...");
 
+    // El reloj se actualiza cada segundo.
     timerHora = new QTimer(this);
 
     connect(timerHora, SIGNAL(timeout()), this, SLOT(actualizarHora()));
@@ -120,6 +121,7 @@ void login::validarLogin()
     QString usuario = ui->leUsuario->text();
     QString clave = ui->leClave->text();
 
+    // Mientras esta bloqueado no se permite volver a validar.
     if (bloqueado) {
         ui->lMensaje->setText("Login bloqueado. Espere unos segundos.");
         return;
@@ -149,6 +151,7 @@ void login::validarLogin()
             ui->leUsuario->setEnabled(false);
             ui->leClave->setEnabled(false);
 
+            // Desbloquea la interfaz luego del tiempo de espera.
             QTimer::singleShot(10000, this, [=]() {
                 intentos = 0;
                 bloqueado = false;
@@ -182,6 +185,7 @@ void login::descargarFondo()
 
     QFile archivo(ruta);
 
+    // Si ya se descargo antes, se reutiliza para no depender de internet.
     if (archivo.exists()) {
         QPixmap pixmap(ruta);
 
@@ -206,6 +210,7 @@ void login::descargarFondo()
 
 void login::procesarFondo(QNetworkReply *reply)
 {
+    // Guarda la imagen recibida y la aplica como fondo de la ventana.
     if (reply->error() != QNetworkReply::NoError) {
         qDebug() << "Error al descargar fondo:" << reply->errorString();
         reply->deleteLater();
@@ -241,6 +246,7 @@ void login::procesarFondo(QNetworkReply *reply)
 
 void login::descargarImagenPrincipal()
 {
+    // La imagen principal se descarga antes de abrir la ventana de CV.
     QString url = "https://picsum.photos/1200/800.jpg";
 
     qDebug() << "Iniciando descarga de imagen principal...";
@@ -255,6 +261,7 @@ void login::procesarImagenPrincipal(QNetworkReply *reply)
 {
     qDebug() << "Entro a procesarImagenPrincipal";
 
+    // Si falla la descarga, se abre igual la ventana principal en modo offline.
     if (reply->error() != QNetworkReply::NoError) {
         qDebug() << "ERROR en descarga:" << reply->errorString();
 

@@ -9,6 +9,12 @@
 #include <QTextStream>
 #include <QMessageBox>
 
+/*
+ * Constructor de la ventana de notas.
+ *
+ * Recibe el ID de la tarea para saber qué archivo de notas debe leer
+ * y guardar. Luego arma la interfaz y carga el contenido existente.
+ */
 NotesWidget::NotesWidget(int taskId, QWidget *parent)
     : QWidget(parent), taskId(taskId)
 {
@@ -82,6 +88,12 @@ NotesWidget::NotesWidget(int taskId, QWidget *parent)
     connect(btnGuardar, &QPushButton::clicked, this, &NotesWidget::saveNotes);
 }
 
+/*
+ * Carga las notas guardadas para la tarea actual.
+ *
+ * Si el archivo todavía no existe, simplemente deja el editor vacío
+ * para que el usuario pueda crear las notas por primera vez.
+ */
 void NotesWidget::loadNotes()
 {
     QString basePath = QCoreApplication::applicationDirPath();
@@ -99,6 +111,12 @@ void NotesWidget::loadNotes()
     file.close();
 }
 
+/*
+ * Guarda el contenido del editor de texto.
+ *
+ * El archivo se sobrescribe completo para que quede exactamente igual
+ * a lo que el usuario ve en pantalla.
+ */
 void NotesWidget::saveNotes()
 {
     QString basePath = QCoreApplication::applicationDirPath();

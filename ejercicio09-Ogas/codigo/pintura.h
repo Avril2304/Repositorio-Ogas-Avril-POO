@@ -8,6 +8,7 @@
 
 #include "database.h"
 
+// Trazo en memoria mientras se dibuja o se muestra en pantalla.
 struct Trazo
 {
     QVector<QPoint> puntos;
@@ -15,9 +16,11 @@ struct Trazo
     int grosor;
 };
 
+// Lienzo interactivo que dibuja, deshace y persiste coordenadas.
 class Pintura : public QWidget
 {
 private:
+    // Lista de trazos ya terminados y trazo en curso.
     QVector<Trazo> trazos;
     Trazo trazoActual;
 
@@ -43,7 +46,7 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 private:
-    void guardarTrazoActual();
+    void guardarTrazoActual(); // Persiste el trazo completo en la base.
 };
 
 #endif

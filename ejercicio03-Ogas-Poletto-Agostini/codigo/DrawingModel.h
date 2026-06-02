@@ -9,14 +9,14 @@
 #include <QJsonArray>
 #include <QUuid>
 
-// Represents a single stroke (pencil or eraser)
+// Representa un trazo individual, ya sea de lapiz o de goma.
 struct Stroke {
-    QString id;           // Unique ID for merge support
+    QString id;           // ID unico usado para mezclar estados remotos.
     QVector<QPointF> points;
     QColor color;
     int thickness;
     bool isEraser;
-    qint64 timestamp;     // For conflict resolution
+    qint64 timestamp;     // Orden temporal para resolver el orden de dibujo.
 
     Stroke() : thickness(6), isEraser(false), timestamp(0) {
         id = QUuid::createUuid().toString(QUuid::WithoutBraces);
@@ -26,28 +26,29 @@ struct Stroke {
     static Stroke fromJson(const QJsonObject &obj);
 };
 
+// Modelo central del dibujo: almacena trazos, serializa estado y renderiza.
 class DrawingModel : public QObject {
     Q_OBJECT
 
 public:
     explicit DrawingModel(QObject *parent = nullptr);
 
-    // Stroke management
+    // Gestion del trazo que esta siendo dibujado.
     void beginStroke(const QPointF &point, const QColor &color, int thickness, bool isEraser);
     void addPoint(const QPointF &point);
     void endStroke();
 
-    // Incremental merge: adds strokes from remote that we don't have
+    // Mezcla incremental: agrega trazos remotos que aun no existen localmente.
     void mergeStrokes(const QVector<Stroke> &remoteStrokes);
 
     const QVector<Stroke> &strokes() const { return m_strokes; }
     Stroke *currentStroke() { return m_currentStroke; }
 
-    // Serialization
+    // Serializacion para enviar/recibir el dibujo como JSON.
     QJsonObject toJson() const;
     void fromJson(const QJsonObject &obj);
 
-    // Render all strokes into an image
+    // Renderiza todos los trazos sobre una imagen destino.
     void renderToImage(QImage &image) const;
 
     void clear();

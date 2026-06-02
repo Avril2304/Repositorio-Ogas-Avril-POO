@@ -8,6 +8,7 @@ Juego::Juego(QWidget *parent)
 
     setFocusPolicy(Qt::StrongFocus);
 
+    // Estado inicial de partida.
     gameOver = false;
     puntaje = 0;
     nivelVelocidad = 1;
@@ -22,6 +23,7 @@ Juego::Juego(QWidget *parent)
     imagenPajaro2.load(":/recursos/recursos/pajaro2.png");
     imagenPajaro3.load(":/recursos/recursos/pajaro3.png");
 
+    // Timer principal del juego y timer para crear obstaculos aereos.
     timerJuego = new QTimer(this);
     timerCrearPajaro = new QTimer(this);
 
@@ -44,6 +46,7 @@ Juego::~Juego()
 
 void Juego::actualizarJuego()
 {
+    // Si termino la partida, se detienen las actualizaciones.
     if (gameOver)
         return;
 
@@ -65,6 +68,7 @@ void Juego::actualizarJuego()
 
     puntaje += nivelVelocidad;
 
+    // Cada 500 puntos aumenta la dificultad general.
     if (puntaje % 500 == 0)
     {
         nivelVelocidad++;
@@ -79,6 +83,7 @@ void Juego::actualizarJuego()
 
     verificarColisiones();
 
+    // Se eliminan pajaros que ya salieron para no acumular memoria.
     for (int i = pajaros.size() - 1; i >= 0; i--)
     {
         if (pajaros[i]->estaFueraDePantalla())
@@ -93,6 +98,7 @@ void Juego::actualizarJuego()
 
 void Juego::crearPajaro()
 {
+    // No se crean nuevos obstaculos cuando la partida termino.
     if (gameOver)
         return;
 
@@ -108,6 +114,7 @@ void Juego::crearPajaro()
 
 void Juego::verificarColisiones()
 {
+    // Se usa un rectangulo ajustado para comparar contra todos los obstaculos.
     QRect rectTrex = trex.obtenerRectanguloColision().adjusted(-3, -3, 3, 3);
 
     if (rectTrex.intersects(cactus.obtenerRectanguloColision()))
@@ -134,6 +141,7 @@ void Juego::verificarColisiones()
 
 void Juego::reiniciarJuego()
 {
+    // Reinicia entidades y contadores para empezar otra partida.
     trex = TRex();
     cactus = Cactus();
 
@@ -157,6 +165,7 @@ void Juego::reiniciarJuego()
 
 void Juego::eliminarPajaros()
 {
+    // Los pajaros se crean con new, por eso se liberan manualmente.
     for (int i = 0; i < pajaros.size(); i++)
     {
         delete pajaros[i];
@@ -256,6 +265,7 @@ void Juego::paintEvent(QPaintEvent *event)
 
 void Juego::keyPressEvent(QKeyEvent *event)
 {
+    // En game over solo se acepta reiniciar con R.
     if (gameOver)
     {
         if (event->key() == Qt::Key_R)

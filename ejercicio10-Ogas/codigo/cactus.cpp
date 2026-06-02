@@ -2,6 +2,7 @@
 
 Cactus::Cactus()
 {
+    // Posicion inicial del cactus sobre el suelo.
     ancho = 35;
     alto = 60;
 
@@ -13,6 +14,7 @@ Cactus::Cactus()
 
 void Cactus::mover()
 {
+    // Avanza hacia la izquierda y vuelve al inicio cuando sale de pantalla.
     x -= velocidad;
 
     if (x + ancho < 0)
@@ -28,6 +30,7 @@ void Cactus::reiniciar()
 
 void Cactus::aumentarVelocidad()
 {
+    // La velocidad aumenta con el nivel del juego.
     velocidad++;
 }
 

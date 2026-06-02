@@ -2,6 +2,7 @@
 
 bool ValidadorPython::validarLinea(const QString &linea, QString &mensajeError)
 {
+    // Python acepta comentarios, bloques con dos puntos y lineas sin punto y coma.
     QString l = linea.trimmed();
 
     if (l.isEmpty()) return true;

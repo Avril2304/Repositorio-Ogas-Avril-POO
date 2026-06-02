@@ -14,6 +14,7 @@ class login;
 }
 QT_END_NAMESPACE
 
+// Pantalla de login con clima, hora, bloqueo por intentos y descarga de imagenes.
 class login : public Pantalla
 {
     Q_OBJECT
@@ -26,12 +27,12 @@ public:
     void limpiarPantalla() override;
 
 private slots:
-    void validarLogin();
+    void validarLogin(); // Comprueba credenciales y controla los intentos fallidos.
 
     void mostrarClima(QString temperatura, QString descripcion);
     void errorClima(QString mensaje);
 
-    void descargarFondo();
+    void descargarFondo(); // Descarga o reutiliza el fondo local.
     void procesarFondo(QNetworkReply *reply);
 
     void descargarImagenPrincipal();
@@ -41,6 +42,7 @@ private slots:
 private:
     Ui::login *ui;
 
+    // Estado del login y dependencias de red.
     int intentos;
     bool bloqueado;
 

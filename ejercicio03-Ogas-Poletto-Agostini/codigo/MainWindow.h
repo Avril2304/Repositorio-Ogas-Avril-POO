@@ -9,6 +9,7 @@
 #include "CanvasView.h"
 #include "SyncManager.h"
 
+// Ventana principal: arma la interfaz y conecta el lienzo con la sincronizacion.
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -35,8 +36,9 @@ private:
     QLabel       *m_statusLabel;
     QPushButton  *m_saveButton;
 
-    int   m_colorIndex = 0;
+    int   m_colorIndex = 0;   // Indice de la paleta seleccionada con teclas 1..9.
 
+    // Metodos auxiliares para mantener separada la construccion visual.
     void setupToolbar();
     void applyMetroStyle();
     void updateColorSwatch();

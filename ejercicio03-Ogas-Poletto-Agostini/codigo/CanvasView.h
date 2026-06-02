@@ -6,6 +6,8 @@
 #include <QTimer>
 #include "DrawingModel.h"
 
+// Widget encargado de mostrar el lienzo y transformar eventos del mouse
+// en trazos dentro del modelo.
 class CanvasView : public QWidget {
     Q_OBJECT
 
@@ -16,10 +18,11 @@ public:
     void setThickness(int t);
     int  thickness() const { return m_thickness; }
 
-    // Load a remote image into the canvas (replaces base)
+    // Carga una imagen remota como base visual del lienzo.
     void loadImage(const QImage &img);
     QImage currentImage() const { return m_canvasImage; }
 
+    // Reconstruye la imagen visible desde los trazos guardados en el modelo.
     void rebuildCanvas();
 
 protected:
@@ -37,8 +40,8 @@ signals:
 private:
     DrawingModel *m_model;
 
-    QImage m_canvasImage;     // Accumulated finished strokes
-    QImage m_overlayImage;    // Current in-progress stroke (live)
+    QImage m_canvasImage;     // Trazos ya terminados.
+    QImage m_overlayImage;    // Trazo actual, todavia no confirmado.
 
     QColor m_color;
     int    m_thickness = 6;

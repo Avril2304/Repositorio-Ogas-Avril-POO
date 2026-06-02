@@ -9,6 +9,7 @@ class login;
 }
 QT_END_NAMESPACE
 
+// Login basado en archivo .ui generado con Qt Designer.
 class login : public QWidget
 {
     Q_OBJECT
@@ -18,7 +19,7 @@ public:
     ~login() override;
 
 private slots:
-    void validarLogin();
+    void validarLogin(); // Valida usuario y clave; si son correctos cierra la ventana.
 
 private:
     Ui::login *ui;

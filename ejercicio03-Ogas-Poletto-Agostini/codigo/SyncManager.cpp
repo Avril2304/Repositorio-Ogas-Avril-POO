@@ -10,6 +10,7 @@ SyncManager::SyncManager(DrawingModel *model, QObject *parent)
 {
     m_nam = new QNetworkAccessManager(this);
     m_pollTimer = new QTimer(this);
+    // El timer mantiene la colaboracion activa sin bloquear la interfaz.
     connect(m_pollTimer, &QTimer::timeout, this, &SyncManager::onPollTimer);
 }
 
@@ -32,11 +33,13 @@ void SyncManager::saveToServer() {
         emit saveError("Server URL not configured.");
         return;
     }
+    // Evita superponer POSTs si el usuario dibuja o guarda muy rapido.
     if (m_saving) return;
     m_saving = true;
 
     emit statusMessage("Saving to server…");
 
+    // El servidor recibe todo el estado y lo mezcla por ID de trazo.
     QJsonDocument doc(m_model->toJson());
     QByteArray payload = doc.toJson(QJsonDocument::Compact);
 
@@ -66,6 +69,7 @@ void SyncManager::onSaveReply(QNetworkReply *reply) {
 
 void SyncManager::fetchFromServer() {
     if (m_serverUrl.isEmpty()) return;
+    // Evita GETs simultaneos cuando el polling se cruza con una respuesta lenta.
     if (m_fetching) return;
     m_fetching = true;
 
@@ -95,10 +99,11 @@ void SyncManager::onFetchReply(QNetworkReply *reply) {
     QJsonObject obj = doc.object();
     QVector<Stroke> remoteStrokes;
 
+    // Convierte el JSON remoto al mismo tipo de dato que usa el modelo local.
     for (const auto &v : obj["strokes"].toArray())
         remoteStrokes.append(Stroke::fromJson(v.toObject()));
 
-    // Incremental merge: only add new strokes, never lose local ones
+    // Mezcla incremental: solo agrega trazos nuevos, sin perder los locales.
     m_model->mergeStrokes(remoteStrokes);
 
     emit fetchSuccess();

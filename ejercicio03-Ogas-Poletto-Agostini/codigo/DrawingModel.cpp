@@ -15,6 +15,7 @@ QJsonObject Stroke::toJson() const {
     obj["isEraser"] = isEraser;
     obj["timestamp"] = timestamp;
 
+    // Los puntos se guardan como objetos {x, y} para mantener precision.
     QJsonArray pts;
     for (const auto &p : points) {
         QJsonObject pt;
@@ -47,6 +48,7 @@ DrawingModel::DrawingModel(QObject *parent) : QObject(parent) {}
 
 void DrawingModel::beginStroke(const QPointF &point, const QColor &color,
                                int thickness, bool isEraser) {
+    // Mientras el usuario dibuja, el trazo vive separado de la lista final.
     m_currentStroke = new Stroke();
     m_currentStroke->color     = isEraser ? Qt::white : color;
     m_currentStroke->thickness = thickness;
@@ -57,7 +59,7 @@ void DrawingModel::beginStroke(const QPointF &point, const QColor &color,
 
 void DrawingModel::addPoint(const QPointF &point) {
     if (!m_currentStroke) return;
-    // Only add if moved enough (avoids duplicate points)
+    // Evita acumular puntos casi identicos y reduce el JSON sincronizado.
     if (!m_currentStroke->points.isEmpty()) {
         QPointF last = m_currentStroke->points.last();
         if (QLineF(last, point).length() < 2.0) return;
@@ -69,6 +71,7 @@ void DrawingModel::addPoint(const QPointF &point) {
 void DrawingModel::endStroke() {
     if (!m_currentStroke) return;
     if (m_currentStroke->points.size() >= 1) {
+        // Al finalizar, el trazo se copia a la coleccion persistente.
         m_strokes.append(*m_currentStroke);
         emit strokeAdded(m_strokes.last());
     }
@@ -78,7 +81,7 @@ void DrawingModel::endStroke() {
 }
 
 void DrawingModel::mergeStrokes(const QVector<Stroke> &remoteStrokes) {
-    // Build a set of known IDs
+    // Un set permite detectar rapido trazos que ya fueron incorporados.
     QSet<QString> knownIds;
     for (const auto &s : m_strokes) knownIds.insert(s.id);
 
@@ -92,7 +95,7 @@ void DrawingModel::mergeStrokes(const QVector<Stroke> &remoteStrokes) {
     }
 
     if (changed) {
-        // Sort by timestamp to preserve draw order
+        // El orden temporal mantiene consistente la superposicion de trazos.
         std::sort(m_strokes.begin(), m_strokes.end(),
                   [](const Stroke &a, const Stroke &b) {
                       return a.timestamp < b.timestamp;
@@ -131,6 +134,7 @@ QVector<QPointF> DrawingModel::catmullRomSpline(const QVector<QPointF> &pts,
     if (pts.size() < 2) return pts;
     if (pts.size() == 2) return pts;
 
+    // Calcula puntos intermedios para que el render final se vea fluido.
     auto catmullRom = [](QPointF p0, QPointF p1, QPointF p2, QPointF p3, float t) {
         float t2 = t * t, t3 = t2 * t;
         return QPointF(
@@ -168,7 +172,7 @@ void DrawingModel::renderStroke(QPainter &painter, const Stroke &stroke) const {
         painter.setCompositionMode(QPainter::CompositionMode_Source);
         painter.setPen(Qt::NoPen);
         painter.setBrush(Qt::white);
-        // Draw eraser as circles along the path
+        // La goma se renderiza como circulos blancos a lo largo del camino.
         auto smooth = catmullRomSpline(stroke.points);
         for (const auto &p : smooth)
             painter.drawEllipse(p, stroke.thickness/2.0, stroke.thickness/2.0);

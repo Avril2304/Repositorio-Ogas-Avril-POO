@@ -3,6 +3,7 @@
 
 #include <QString>
 
+// Lee configuraciones del editor desde datos/config.txt.
 class ConfigManager
 {
 public:

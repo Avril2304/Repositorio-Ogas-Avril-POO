@@ -5,6 +5,7 @@
 
 QString Config::obtenerValor(QString clave)
 {
+    // Busca la clave solicitada dentro del archivo de configuracion del ejercicio.
     QFile archivo("datos/config.txt");
 
     if (!archivo.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -14,6 +15,7 @@ QString Config::obtenerValor(QString clave)
     QTextStream entrada(&archivo);
 
     while (!entrada.atEnd()) {
+        // Cada linea valida debe tener el formato CLAVE=VALOR.
         QString linea = entrada.readLine();
 
         QStringList partes = linea.split("=");

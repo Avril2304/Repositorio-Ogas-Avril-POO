@@ -3,6 +3,7 @@
 
 #include "validadorsintaxis.h"
 
+// Validador basico de reglas frecuentes de Python.
 class ValidadorPython : public ValidadorSintaxis
 {
 public:

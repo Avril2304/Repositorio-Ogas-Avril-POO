@@ -6,6 +6,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    // Punto de entrada: abre el login del editor multilenguaje.
     Login w;
     w.show();
 

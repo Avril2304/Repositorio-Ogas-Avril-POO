@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_canvas = new CanvasView(m_model, this);
     m_sync   = new SyncManager(m_model, this);
 
-    // Load server URL from settings (or prompt user)
+    // Se recuerda la ultima URL usada, pero se vuelve a pedir para facilitar pruebas.
     QSettings settings("CollabCanvas", "CollabCanvas");
     // Siempre preguntar la URL para evitar URLs corruptas cacheadas
     QString savedUrl = settings.value("serverUrl", "http://161.97.92.143:5005").toString();
@@ -59,11 +59,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     setCentralWidget(m_canvas);
 
-    // Status bar
+    // Barra de estado para mostrar mensajes de red y acciones del usuario.
     m_statusLabel = new QLabel("Ready");
     statusBar()->addWidget(m_statusLabel);
 
-    // Connections
+    // Conexiones entre la vista, el modelo de sincronizacion y la UI.
     connect(m_canvas, &CanvasView::thicknessChanged,
             this, &MainWindow::onThicknessChanged);
     connect(m_canvas, &CanvasView::strokeFinished, this, [this]() {
@@ -79,11 +79,11 @@ MainWindow::MainWindow(QWidget *parent)
         m_statusLabel->setText("Synced with server.");
     });
 
-    // Initial fetch + start polling
+    // Al iniciar, trae el estado remoto y luego consulta periodicamente.
     m_sync->fetchFromServer();
     m_sync->startPolling(2000);   // poll every 2 seconds para mayor inmediatez colaborativa
 
-    // Set initial color
+    // Color inicial del pincel.
     m_canvas->setColor(colorForIndex(0));
     updateColorSwatch();
 }
@@ -99,7 +99,7 @@ void MainWindow::setupToolbar() {
     bar->setIconSize(QSize(24, 24));
     bar->setObjectName("mainToolbar");
 
-    // Save button (Metro style)
+    // Boton de guardado manual; el auto-guardado se dispara al terminar trazos.
     m_saveButton = new QPushButton("  💾  GUARDAR");
     m_saveButton->setObjectName("metroSaveButton");
     m_saveButton->setFixedHeight(36);
@@ -109,7 +109,7 @@ void MainWindow::setupToolbar() {
 
     bar->addSeparator();
 
-    // Color swatch
+    // Muestra el color actualmente seleccionado.
     QLabel *colorLabel = new QLabel("Color:");
     colorLabel->setObjectName("toolLabel");
     bar->addWidget(colorLabel);
@@ -125,7 +125,7 @@ void MainWindow::setupToolbar() {
 
     bar->addSeparator();
 
-    // Thickness indicator
+    // Indicador del grosor actual, modificado con la rueda del mouse.
     QLabel *thickLabel = new QLabel("Thickness:");
     thickLabel->setObjectName("toolLabel");
     bar->addWidget(thickLabel);
@@ -141,7 +141,7 @@ void MainWindow::setupToolbar() {
 
     bar->addSeparator();
 
-    // Palette swatches (visual reference)
+    // Referencia visual de los colores que se eligen con teclas numericas.
     QLabel *paletteLabel = new QLabel("Palette:");
     paletteLabel->setObjectName("toolLabel");
     bar->addWidget(paletteLabel);
@@ -165,7 +165,7 @@ void MainWindow::setupToolbar() {
 
     bar->addSeparator();
 
-    // Hints
+    // Ayuda breve de controles principales.
     QLabel *hint = new QLabel("LMB: Draw  |  RMB: Erase");
     hint->setObjectName("hintLabel");
     bar->addWidget(hint);
@@ -256,6 +256,7 @@ void MainWindow::applyMetroStyle() {
 void MainWindow::keyPressEvent(QKeyEvent *event) {
     int key = event->key();
     if (key >= Qt::Key_1 && key <= Qt::Key_9) {
+        // Las teclas 1..9 mapean directamente a los indices 0..8.
         m_colorIndex = key - Qt::Key_1;   // 0..8
         QColor c = colorForIndex(m_colorIndex);
         m_canvas->setColor(c);
@@ -268,6 +269,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 // ── Slots ─────────────────────────────────────────────────────────────────────
 
 void MainWindow::onSaveClicked() {
+    // Deshabilita el boton para evitar envios manuales duplicados.
     m_saveButton->setEnabled(false);
     m_saveButton->setText("  ⏳  GUARDANDO…");
     m_sync->saveToServer();

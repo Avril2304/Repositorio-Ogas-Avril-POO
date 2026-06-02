@@ -8,6 +8,7 @@
 Pintura::Pintura(int idUser, Database *base, QWidget *parent)
     : QWidget(parent)
 {
+    // Se guarda el usuario para asociar todos los trazos a su cuenta.
     idUsuario = idUser;
     db = base;
 
@@ -29,6 +30,7 @@ void Pintura::paintEvent(QPaintEvent *event)
 
     painter.setRenderHint(QPainter::Antialiasing);
 
+    // Primero se dibujan los trazos ya confirmados.
     for (int i = 0; i < trazos.size(); i++) {
 
         painter.setPen(
@@ -56,6 +58,7 @@ void Pintura::paintEvent(QPaintEvent *event)
              Qt::RoundJoin)
         );
 
+    // Luego se dibuja el trazo que esta creando el usuario.
     for (int i = 1; i < trazoActual.puntos.size(); i++) {
 
         painter.drawLine(
@@ -69,6 +72,7 @@ void Pintura::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
 
+        // Al presionar el mouse comienza un trazo nuevo.
         dibujando = true;
 
         trazoActual.puntos.clear();
@@ -85,6 +89,7 @@ void Pintura::mouseMoveEvent(QMouseEvent *event)
 {
     if (dibujando) {
 
+        // Cada movimiento agrega un punto a la linea actual.
         trazoActual.puntos.push_back(event->pos());
 
         update();
@@ -95,6 +100,7 @@ void Pintura::mouseReleaseEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton && dibujando) {
 
+        // Al soltar el mouse el trazo se confirma y se guarda.
         dibujando = false;
 
         trazos.push_back(trazoActual);
@@ -109,6 +115,7 @@ void Pintura::mouseReleaseEvent(QMouseEvent *event)
 
 void Pintura::wheelEvent(QWheelEvent *event)
 {
+    // La rueda del mouse cambia el grosor del pincel.
     int delta = event->angleDelta().y();
 
     if (delta > 0) {
@@ -128,6 +135,7 @@ void Pintura::wheelEvent(QWheelEvent *event)
 
 void Pintura::keyPressEvent(QKeyEvent *event)
 {
+    // Atajos de teclado para cambiar color, borrar todo o deshacer.
     if (event->key() == Qt::Key_R) {
 
         colorActual = Qt::red;
@@ -166,6 +174,7 @@ void Pintura::keyPressEvent(QKeyEvent *event)
             if (db != nullptr) {
                 db->borrarTrazosUsuario(idUsuario);
 
+                // Se regraba la base con la lista de trazos que quedaron tras deshacer.
                 for (int i = 0; i < trazos.size(); i++) {
 
                     int idTrazo = db->guardarTrazo(
@@ -191,6 +200,7 @@ void Pintura::keyPressEvent(QKeyEvent *event)
 
 void Pintura::guardarTrazoActual()
 {
+    // No se guarda nada si no hay base o si el trazo no tiene puntos.
     if (db == nullptr) {
         return;
     }
@@ -220,6 +230,7 @@ void Pintura::guardarTrazoActual()
 
 void Pintura::cargarDesdeBase()
 {
+    // Reconstruye los trazos guardados para el usuario autenticado.
     if (db == nullptr) {
         return;
     }

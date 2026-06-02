@@ -2,6 +2,7 @@
 
 bool ValidadorJava::validarLinea(const QString &linea, QString &mensajeError)
 {
+    // Reglas simples para imports, comentarios, bloques e instrucciones con punto y coma.
     QString l = linea.trimmed();
 
     if (l.isEmpty()) return true;
