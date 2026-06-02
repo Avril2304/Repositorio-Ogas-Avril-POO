@@ -185,10 +185,6 @@ ejercicio08-Ogas/
 
 ![Pantalla principal](capturas/pantalla-principal.png)
 
-### Distintas funciones
-
-![Funciones](capturas/distintas-funciones.png)
-
 ---
 
 ## Compilación y ejecución
