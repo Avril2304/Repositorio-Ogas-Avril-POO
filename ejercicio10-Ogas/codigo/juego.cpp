@@ -15,11 +15,12 @@ Juego::Juego(QWidget *parent)
     desplazamientoNubes = 0;
     velocidadExtraPajaros = 0;
 
-    imagenTrex.load(":/recursos/t-rex.png");
-    imagenCactus.load(":/recursos/cactus.png");
-    imagenPajaro.load(":/recursos/pajaro.png");
-    imagenPajaro2.load(":/recursos/pajaro2.png");
-    imagenPajaro3.load(":/recursos/pajaro3.png");
+    imagenTrex.load(":/recursos/recursos/t-rex.png");
+    imagenCactus.load(":/recursos/recursos/cactus.png");
+
+    imagenPajaro.load(":/recursos/recursos/pajaro.png");
+    imagenPajaro2.load(":/recursos/recursos/pajaro2.png");
+    imagenPajaro3.load(":/recursos/recursos/pajaro3.png");
 
     timerJuego = new QTimer(this);
     timerCrearPajaro = new QTimer(this);
