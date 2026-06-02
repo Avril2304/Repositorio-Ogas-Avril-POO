@@ -139,13 +139,17 @@ ejercicio10-Ogas/
 
 ![Gameplay](capturas/gameplay.png)
 
+### Salto
+
+![Salto](capturas/salto.png)
+
+### Pájaros
+
+![Pajaro](capturas/pajaro.png)
+
 ### Game Over
 
-![GameOver](capturas/gameover.png)
-
-### Obstáculos y pájaros
-
-![Obstaculos](capturas/obstaculos.png)
+![Game Over](capturas/game_over.png)
 
 ---
 

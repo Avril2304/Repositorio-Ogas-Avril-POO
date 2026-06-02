@@ -167,13 +167,25 @@ ejercicio07-Ogas/
 
 ## Capturas
 
-### Login
+### Login con clima
 
-![Login](capturas/login.png)
+![Login clima](capturas/login_clima.png)
+
+### Login correcto
+
+![Login correcto](capturas/login_correcto.png)
+
+### Login incorrecto
+
+![Login incorrecto](capturas/login_incorrecto.png)
+
+### Bloqueo por intentos
+
+![Bloqueo](capturas/bloqueo.png)
 
 ### Ventana principal
 
-![Ventana](capturas/ventana.png)
+![Ventana principal](capturas/ventana_principal.png)
 
 ---
 

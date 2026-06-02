@@ -85,27 +85,27 @@ CREATE TABLE coordenadas (
 
 ## Controles del lienzo
 
-| Acción | Control |
-|---|---|
-| Dibujar | Click izquierdo + mover mouse |
-| Aumentar/disminuir grosor | Rueda del mouse |
-| Color rojo | Tecla `R` |
-| Color verde | Tecla `G` |
-| Color azul | Tecla `B` |
-| Borrar lienzo | `Escape` |
-| Deshacer | `Ctrl + Z` |
+|          Acción           |            Control            |
+|---------------------------|-------------------------------|
+| Dibujar                   | Click izquierdo + mover mouse |
+| Aumentar/disminuir grosor | Rueda del mouse               |
+| Color rojo                | Tecla `R`                     |
+| Color verde               | Tecla `G`                     |
+| Color azul                | Tecla `B`                     |
+| Borrar lienzo             | `Escape`                      |
+| Deshacer                  | `Ctrl + Z`                    |
 
 ---
 
 ## Clases principales
 
-| Clase | Responsabilidad |
-|---|---|
-| `Login` | Pantalla inicial y validación de usuario |
-| `Ventana` | Ventana principal que contiene el lienzo |
-| `Pintura` | Widget de dibujo libre |
-| `Database` | Persistencia y consultas SQLite |
-| `Logger` | Registro de eventos en archivos |
+|   Clase    |              Responsabilidad             |
+|------------|------------------------------------------|
+| `Login`    | Pantalla inicial y validación de usuario |
+| `Ventana`  | Ventana principal que contiene el lienzo |
+| `Pintura`  | Widget de dibujo libre                   |
+| `Database` | Persistencia y consultas SQLite          |
+| `Logger`   | Registro de eventos en archivos          |
 
 ---
 
@@ -169,13 +169,13 @@ ejercicio09-Ogas/
 
 ![Login](capturas/login.png)
 
-### Lienzo de dibujo
+### Login incorrecto
 
-![Lienzo](capturas/lienzo.png)
+![Login incorrecto](capturas/login-incorrecto.png)
 
-### Persistencia de dibujo
+### Pantalla principal
 
-![Persistencia](capturas/persistencia.png)
+![Pantalla principal](capturas/pantalla-principal.png)
 
 ---
 

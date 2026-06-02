@@ -56,6 +56,14 @@ ejercicio06-Ogas/
 
 ---
 
+## Capturas
+
+### Login con Qt Designer
+
+![Login](capturas/login.png)
+
+---
+
 ## Compilación y ejecución
 
 1. Abrir el archivo `.pro` desde Qt Creator.

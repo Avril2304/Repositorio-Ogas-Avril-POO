@@ -54,6 +54,22 @@ ejercicio05-Ogas/
 
 ---
 
+## Capturas
+
+### Login inicial
+
+![Login](capturas/login.png)
+
+### Login correcto
+
+![Login correcto](capturas/login_correcto.png)
+
+### Login incorrecto
+
+![Login incorrecto](capturas/login_incorrecto.png)
+
+---
+
 ## Compilación y ejecución
 
 1. Abrir el archivo `.pro` desde Qt Creator.

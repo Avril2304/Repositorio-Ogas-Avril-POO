@@ -173,13 +173,21 @@ ejercicio08-Ogas/
 
 ![Login](capturas/login.png)
 
-### Editor principal
+### Intentos fallidos
 
-![Editor](capturas/editor.png)
+![Intentos](capturas/intentos.png)
 
-### Exportación JPG
+### Modo bloqueado
 
-![Exportacion](capturas/exportacion.png)
+![Modo bloqueado](capturas/modo-bloqueado.png)
+
+### Pantalla principal
+
+![Pantalla principal](capturas/pantalla-principal.png)
+
+### Distintas funciones
+
+![Funciones](capturas/distintas-funciones.png)
 
 ---
 

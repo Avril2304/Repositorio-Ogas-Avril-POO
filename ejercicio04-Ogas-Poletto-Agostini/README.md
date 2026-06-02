@@ -27,11 +27,11 @@ El objetivo principal del ejercicio es aplicar conceptos de comunicación client
 
 ## Estados del tablero
 
-| Estado | Color |
-|---|---|
-| Pendiente | `#ff7675` |
+|   Estado   |   Color   |
+|------------|-----------|
+| Pendiente  | `#ff7675` |
 | En Proceso | `#ffeaa7` |
-| Hecho | `#55efc4` |
+| Hecho      | `#55efc4` |
 
 ---
 
@@ -141,32 +141,36 @@ El backend fue desplegado sobre un VPS utilizando Docker y Docker Compose.
 
 ### Componentes principales
 
-| Archivo | Función |
-|---|---|
-| `main.py` | API REST FastAPI |
-| `Dockerfile` | Imagen del backend |
+|        Archivo       |           Función            |
+|----------------------|------------------------------|
+| `main.py`            | API REST FastAPI             |
+| `Dockerfile`         | Imagen del backend           |
 | `docker-compose.yml` | Orquestación de contenedores |
-| `requirements.txt` | Dependencias Python |
+| `requirements.txt`   | Dependencias Python          |
 
 ---
 
 ## Capturas
 
-### Tablero Kanban
+### Vista principal del tablero
 
-![Kanban](capturas/kanban.png)
+![Principal](capturas/principal.png)
 
-### Movimiento de tarjetas
+### Creación de tarjeta
 
-![Movimiento](capturas/movimiento.png)
+![Crear tarjeta](capturas/crear_tarjeta.png)
 
-### Estados dinámicos
+### Movimiento entre estados
+
+![Movimiento](capturas/mover_estados.png)
+
+### Estados del tablero
 
 ![Estados](capturas/estados.png)
 
-### Backend y VPS
+### Respuesta JSON del backend
 
-![Backend](capturas/backend.png)
+![JSON backend](capturas/json.png)
 
 ---
 

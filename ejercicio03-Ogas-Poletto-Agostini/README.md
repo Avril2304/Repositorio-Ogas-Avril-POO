@@ -175,13 +175,17 @@ node server.js
 
 ![Canvas](capturas/canvas.png)
 
-### Dibujo compartido
-
-![Compartido](capturas/compartido.png)
-
 ### Toolbar y controles
 
 ![Toolbar](capturas/toolbar.png)
+
+### Sincronización con servidor
+
+![Sincronizacion](capturas/sync_guardado.png)
+
+### JSON del servidor
+
+![JSON servidor](capturas/json.png)
 
 ---
 
