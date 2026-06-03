@@ -2,32 +2,36 @@
 #define LOGIN_H
 
 #include <QWidget>
+#include <QLabel>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QGridLayout>
 
-class QLabel;
-class QLineEdit;
-class QPushButton;
-
-// Widget simple de login con usuario y clave fijos.
+// Clase que representa la ventana de login del ejercicio.
 class Login : public QWidget{
 
     Q_OBJECT
 
 public :
+    // Constructor de la ventana. El parent permite integrarla dentro de otra ventana si hiciera falta.
     explicit Login(QWidget *parent = nullptr);
 
 private slots :
-    void validarLogin(); // Comprueba las credenciales y muestra el resultado en pantalla.
+    // Slot que se ejecuta cuando el usuario intenta ingresar.
+    void validarLogin();
 
 private :
-    // Controles de la interfaz creados desde codigo.
-    QLabel *labelUsuario;
-    QLabel *labelClave;
-    QLabel *labelMensaje;
+    // Etiquetas que identifican cada campo del formulario.
+    QLabel *labelUsuario, *labelClave;
 
-    QLineEdit *editUsuario;
-    QLineEdit *editClave;
+    // Campos donde el usuario escribe su nombre y su clave.
+    QLineEdit *editUsuario, *editClave;
 
+    // Boton que dispara la validacion del formulario.
     QPushButton *botonIngreso;
+
+    // Layout principal que ordena los widgets en forma de grilla.
+    QGridLayout *layoutPrincipal;
 };
 
 #endif // LOGIN_H

@@ -4,9 +4,13 @@
 
 int main(int argc, char *argv[])
 {
+    // Objeto principal que administra la aplicacion Qt.
     QApplication a(argc, argv);
-    // Punto de entrada: abre el login creado con Qt Designer.
-    login w;
-    w.show();
+
+    // Se crea y muestra el login disenado en Qt Designer.
+    Login login;
+    login.show();
+
+    // Inicia el ciclo de eventos de la aplicacion.
     return QCoreApplication::exec();
 }

@@ -1,10 +1,9 @@
 #include "login.h"
 #include "ui_login.h"
 
-login::login(QWidget *parent)
-    : QWidget(parent)
-    , ui(new Ui::login)
+Login::Login(QWidget *parent): QWidget(parent), ui(new Ui::Login)
 {
+    // Construye los widgets definidos en login.ui y los asocia a esta ventana.
     ui->setupUi(this);
 
     // Permite validar tanto con el boton como con Enter en el campo clave.
@@ -12,17 +11,20 @@ login::login(QWidget *parent)
     connect (ui->leClave, SIGNAL(returnPressed()),this,SLOT(validarLogin()));
 }
 
-login::~login()
+Login::~Login()
 {
+    // Libera la memoria reservada para la interfaz generada por Qt.
     delete ui;
 }
 
-void login::validarLogin()
+void Login::validarLogin()
 {
     // Usuario y clave fijos para probar el flujo del login.
     if(ui->leUsuario->text() == "admin" && ui->leClave->text() == "1234") {
+        // Si las credenciales son correctas, se cierra la ventana.
         this->close();
     } else {
+        // Si la clave es incorrecta, se limpia para que el usuario la reingrese.
         ui->leClave->clear();
     }
 }

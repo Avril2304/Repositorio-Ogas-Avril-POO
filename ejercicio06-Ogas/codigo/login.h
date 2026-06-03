@@ -3,25 +3,28 @@
 
 #include <QWidget>
 
-QT_BEGIN_NAMESPACE
 namespace Ui {
-class login;
+class Login;
 }
-QT_END_NAMESPACE
 
-// Login basado en archivo .ui generado con Qt Designer.
-class login : public QWidget
+// Ventana de login basada en el formulario login.ui de Qt Designer.
+class Login : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit login(QWidget *parent = nullptr);
-    ~login() override;
+    // Crea la ventana y prepara la interfaz definida en el archivo .ui.
+    explicit Login(QWidget *parent = nullptr);
+
+    // Libera la interfaz generada por Qt Designer.
+    ~Login() override;
 
 private slots:
-    void validarLogin(); // Valida usuario y clave; si son correctos cierra la ventana.
+    // Comprueba las credenciales ingresadas por el usuario.
+    void validarLogin();
 
 private:
-    Ui::login *ui;
+    // Puntero a los widgets creados automaticamente desde login.ui.
+    Ui::Login *ui;
 };
 #endif // LOGIN_H
